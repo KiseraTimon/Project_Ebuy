@@ -1,0 +1,23 @@
+Developer notes
+#######################################################
+
+To use the signin/signup feature properly:
+
+    - Go to components/database.php and change the db name to 'Ebuy'
+    - Fetch the Ebuy.sql from /Database and run it in mySQL
+
+Expected bugs:
+
+1. The search feature will crash because of the database change
+2. The profile photo will bug because of the database change
+
+
+
+TODO LIST
+
+-- Cart & Checkout
+-- Completed search algorithm
+-- Product details page
+-- Product listings
+-- Business owner panel
+-- Backend integration

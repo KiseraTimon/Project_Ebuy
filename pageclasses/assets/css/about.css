@@ -1,0 +1,460 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+:root {
+    --primary-color: #fe5b3e;
+    --text-dark: #0f172a;
+    --text-light: #475569;
+    --extra-light: #f2f2f2;
+    --white: #ffffff;
+    --max-width: 1200px;
+    --gradient: linear-gradient(to bottom, #fe5c3c, #fc8023);
+    --color-2: #474fa0;
+    --color-3: #3c4286;
+    --favourites: #f1c40f;
+}
+
+*
+{
+    box-sizing: border-box;
+}
+
+h1
+{
+    font-family: font51;
+    font-size: 2em;
+}
+
+h2
+{
+    font-family: font51;
+    font-size: 1.3em;
+}
+
+p
+{
+    font-family: font39;
+    font-size: 1em;
+    max-width: 700px;
+    margin: auto;
+}
+
+a
+{
+    font-family: font39;
+}
+
+button
+{
+    font-family: font39;
+    font-size: 1em;
+    width: 100px;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+    background-color: var(--color-2);
+    outline: none;
+    color: white;
+    text-align: center;
+}
+
+button:hover
+{
+    background-color: var(--color-3);
+    transition: 0.3s;
+}
+
+i
+{
+    font-size: 30px;
+}
+
+body
+{
+    margin: 0;
+    padding: 0;
+}
+
+.container
+{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.context
+{
+    max-width: 100%;
+    margin: auto;
+}
+
+.intro
+{
+    padding: 30px;
+    max-width: 70%;
+    margin: auto;
+}
+
+.intro h1
+{
+    text-align: center;
+    color: black;
+}
+
+.intro p
+{
+    margin-top: 20px;
+    text-align: center;
+    color: black;
+}
+
+.numbers
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.numbers .box
+{
+    width: 170px;
+    height: 120px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.numbers .box i
+{
+    color: #f1c40f;
+}
+
+.numbers .box h1
+{
+    color: black;
+}
+
+.numbers .box p
+{
+    font-size: 1em;
+    color: rgba(130, 128, 128, 0.926);
+}
+
+.content
+{
+    max-width: 70%;
+    margin: auto;
+}
+
+.team
+{
+    padding: 10px;
+    background-color: #f1c40f;
+}
+
+.team .teamimage
+{
+    height: 400px;
+    margin-top: 50px;
+}
+
+.team .teamimage img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team .teamnote
+{
+    padding: 30px;
+    margin-top: 30px;
+    max-width: 70%;
+    margin: auto;
+}
+
+.team .teamnote p
+{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+}
+
+/*Why us*/
+.unique
+{
+    padding: 10px;
+}
+
+.unique h1
+{
+    text-align: center;
+    color: black;
+}
+
+.unique .description
+{
+    margin-top: 50px;
+    max-width: 70%;
+    margin: auto;
+    padding: 10px;
+}
+
+.unique .description p
+{
+    text-align: center;
+    font-size: 1em;
+    color: black;
+}
+
+.unique .uniquebox
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.unique .uniquebox .box
+{
+    width: 300px;
+    height: 200px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.unique .uniquebox .box i
+{
+    font-size: 3em;
+    color: #f1c40f;
+}
+
+.unique .uniquebox .box h2
+{
+    color: black;
+}
+
+.unique .uniquebox .box p
+{
+    font-size: 1em;
+    color: rgba(130, 128, 128, 0.926);
+}
+
+/*Story*/
+.story
+{
+    padding: 10px;
+    /* background-color: var(--color-2); */
+}
+
+.contentimage
+{
+    position: relative;
+    max-width: 500px;
+    max-height: 500px;
+    margin: auto;
+}
+
+.contentimage img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.story h1
+{
+    text-align: center;
+    color: black;
+}
+
+.story p
+{
+    margin-top: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+}
+
+/*Services*/
+.services
+{
+    padding: 10px;
+}
+
+.services h1
+{
+    text-align: center;
+    color: black;
+}
+
+.services .servicebox
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.services .servicebox .box
+{
+    width: 300px;
+    height: 200px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.services .servicebox .box i
+{
+    font-size: 3em;
+    color: var(--favourites);
+}
+
+.services .servicebox .box h2
+{
+    color: black;
+}
+
+/*work*/
+.work
+{
+    padding: 10px;
+}
+
+.work h1
+{
+    text-align: center;
+    color: black;
+}
+
+.work p
+{
+    margin-top: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+}
+
+/*Testimonials*/
+.testimonials
+{
+    padding: 10px;
+    min-height: 350px;
+}
+
+.testimonials h1
+{
+    text-align: center;
+    color: black;
+}
+
+.testimonials .testpanel
+{
+    padding: 20px;
+    margin: auto;
+    max-width: 50%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-flow: column;
+    grid-auto-columns: 50%;
+    gap: 20px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-behavior: smooth;
+    transition: all 0.5s ease;
+}
+
+.testimonialcard
+{
+    width: 300px;
+    height: 250px;
+    margin: auto;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.6);
+}
+
+.testimonialcard .testname
+{
+    font-size: 1rem;
+    height: 45px;
+    font-weight: 600;
+    color: #fff;
+    padding: 10px;
+    background-color: #1d1d1d;
+}
+
+.testimonialcard .testcontent
+{
+    height: 165px;
+    padding: 10px;
+}
+
+.testimonialcard .testrating
+{
+    height: 40px;
+    text-align: center;
+    padding: 10px;
+}
+
+.testimonialcard .testrating span
+{
+    color: #f1c40f;
+}
+
+.testimonialcard .testrating span i
+{
+    font-size: 1.3rem;
+}
+
+.testpanel::-webkit-scrollbar {
+    display: none;
+}
+
+/*partners*/
+.partners
+{
+    padding: 10px;
+}
+
+.partners h1
+{
+    text-align: center;
+    color: black;
+}
+
+.partners .partnerbox {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: auto;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-behavior: smooth;
+    transition: all 0.5s ease;
+}
+
+.partnerbox::-webkit-scrollbar {
+    display: none;
+}
+
+.partners .partnerbox .box
+{
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.partners .partnerbox .box img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
