@@ -38,3 +38,28 @@ create Table Transactions
     FOREIGN KEY (userID) REFERENCES users(userID) ON DELETE CASCADE,
     FOREIGN KEY (productID) REFERENCES Products(productID) ON DELETE CASCADE
 );
+
+CREATE TABLE testimonials
+(
+	testID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    dispname VARCHAR(30) NOT NULL,
+    tests TEXT NOT NULL,
+    testreview INT NOT NULL,
+    userID INT NOT NULL
+);
+
+ALTER TABLE testimonials
+ADD FOREIGN KEY (userID) REFERENCES users(userID);
+
+CREATE TABLE favorites
+(
+	favID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    productID INT NOT NULL,
+    userID INT NOT NULL
+);
+
+ALTER TABLE favorites
+ADD FOREIGN KEY (productID) REFERENCES Products(productID);
+
+ALTER TABLE favorites
+ADD FOREIGN KEY (userID) REFERENCES users(userID);
