@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-if(isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin')
+if(isset($_SESSION['accountType']) && $_SESSION['accountType'] == 'admin')
 {
     header('Location: /profile/adminprofile/index.php');
 }
-else if(isset($_SESSION['userType']) && $_SESSION['userType'] == 'client')
+else if(isset($_SESSION['accountType']) && $_SESSION['accountType'] == 'buyer')
 {
     header('Location: /profile/clientprofile/index.php');
 }
