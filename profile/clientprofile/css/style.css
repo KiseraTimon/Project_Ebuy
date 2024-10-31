@@ -159,7 +159,7 @@ a {
   gap: 20px;
   flex-direction: column;
 }
-.header__wrapper .cols__container .right__col nav ul li button {
+.header__wrapper .cols__container .right__col nav ul li a {
   background-color: transparent;
     color: black;
     padding: 10px;
@@ -168,9 +168,10 @@ a {
     font-family: font32;
     font-weight: bold;
     transition: 0.3s;
+    cursor: pointer;
 }
 
-.header__wrapper .cols__container .right__col nav ul li button.active-link
+.header__wrapper .cols__container .right__col nav ul li a.active-link
 {
   color: var(--primary-color);
   font-weight: bold;
@@ -189,6 +190,80 @@ a {
   opacity: 0.8;
   background-color: var(--color-3);
 }
+
+.header__wrapper .cols__container .right__col #cart {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background: transparent;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-item img
+{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-name {
+  font-size: 18px;
+  color: #333;
+  margin: 10px;
+}
+
+.item-price {
+  font-size: 16px;
+  color: #666;
+  margin: 10px;
+}
+
+.item-count
+{
+  font-size: 16px;
+  color: #666;
+  margin: 10px;
+}
+
+.remove-button {
+  background-color: var(--color-2);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.remove-button:hover {
+  background-color: red;
+}
+
+.total-container {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.total-price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 
 .header__wrapper .cols__container .right__col #favourites {
   padding: 0px;
@@ -242,13 +317,13 @@ a {
     gap: 30px;
   }
 
-  .header__wrapper .cols__container .right__col nav ul li button:hover
+  .header__wrapper .cols__container .right__col nav ul li a:hover
   {
     background-color: transparent;
     color: var(--primary-color);
   }
 
-  .header__wrapper .cols__container .right__col nav ul li button.active-link
+  .header__wrapper .cols__container .right__col nav ul li a.active-link
   {
     background-color: transparent;
     color: var(--primary-color);
@@ -269,7 +344,7 @@ a {
   .header__wrapper .cols__container .right__col nav {
     flex-direction: row;
   }
-  .header__wrapper .cols__container .right__col nav button {
+  .header__wrapper .cols__container .right__col nav a {
     margin-top: 0;
   }
 }
