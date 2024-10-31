@@ -13,11 +13,24 @@ Expected bugs:
 
 
 
-TODO LIST
+Complete
 
--- Cart & Checkout
+-- Cart frontend
+-- Authentication
+
+Work in progress
+
+-- Admin UI
+-- Seller's UI
+-- Product listings
+-- Search algorithm
+
+Pending
+
+-- Cart Backend
+-- Checkout
+-- Account update
 -- Completed search algorithm
 -- Product details page
 -- Product listings
 -- Business owner panel
--- Backend integration
