@@ -5,7 +5,7 @@ session_start();
 //Database connectivity
 require '../../components/database.php';
 
-if (!isset($_SESSION['accountType']) && $_SESSION['accountType'] != 'buyer') {
+if (!isset($_SESSION['userType']) && $_SESSION['userType'] != 'client') {
   echo '<script>
           alert("You are not authorized to view this page.");
           window.location.href = "/index.php";
@@ -21,13 +21,12 @@ if(isset($_SESSION['userID']))
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
 
-    $profilepic = $row['profilePic'];
-    $fname = $row['fName'];
-    $lname = $row['lName'];
+    $profilepic = $row['profilepic'];
+    $fname = $row['fname'];
+    $lname = $row['lname'];
     $uname = $row['uname'];
     $email = $row['email'];
-    $contactphone = $row['contactphone'];
-    $password = $row['passw'];
+    $password = $row['password'];
 
     // BLOB conversion
     $profilepic = base64_encode($profilepic);
@@ -35,7 +34,7 @@ if(isset($_SESSION['userID']))
 }
 else
 {
-    header("Location: /index.php");
+    header("Location: ../../index.php");
 }
 ?>
 
@@ -83,7 +82,7 @@ else
           <div class="content">
             <p>
               <!--Welcome note from car depot-->
-              Welcome to Ebuy! We are glad to have you here. We are a large community to serve your shopping needs right from the comfort of your home, work and more. Feel free to explore the website and connect with other shopping enthusiasts. Enjoy your stay!
+              Welcome to EBuy! We are glad to have you here. We are a platform that connects buyers and sellers within the Strathmore University Region. Feel free to explore the website and purchase whatever may interest you. Enjoy your stay!
               <br>
               <br>
               Follow us on social media
@@ -108,79 +107,15 @@ else
         <div class="right__col">
           <nav>
             <ul>
-              <li><a onclick="tabselect(event, 'cart');" href="#">Cart</a></li>
-              <li><a onclick="tabselect(event, 'favourites');" href="#" class="active-link">Favourites</a></li>
-              <li><a onclick="tabselect(event, 'testimonials');" href="#">Testimonials</a></li>
-              <li><a onclick="tabselect(event, 'inquiries');" href="#">Inquiries</a></li>
-              <li><a onclick="tabselect(event, 'account');" href="#">Account</a></li>
+              <li><button onclick="tabselect(event, 'cart');">My Shopping Cart</button></li>
+              <li><button onclick="tabselect(event, 'testimonials');">Testimonials</button></li>
+              <li><button onclick="tabselect(event, 'inquiries');">Inquiries</button></li>
+              <li><button onclick="tabselect(event, 'account');">Account</button></li>
             </ul>
           </nav>
 
-          <!--Cart-->
-          <div id="cart" class="tab-content">
-            <div class="cart-container">
-
-                <div class="cart-item">
-                    <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                    <div class="item-details">
-                        <p class="item-name">Item Name 1</p>
-                        <p class="item-price">Price: Ksh 500</p>
-                        <p class="item-count">Units: 4</p>
-                    </div>
-                    <button class="remove-button">Remove</button>
-                </div>
-
-                <div class="cart-item">
-                    <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                    <div class="item-details">
-                        <p class="item-name">Item Name 2</p>
-                        <p class="item-price">Price: Ksh 300</p>
-                        <p class="item-count">Units: 3</p>
-                    </div>
-                    <button class="remove-button">Remove</button>
-                </div>
-
-                <div class="cart-item">
-                    <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                    <div class="item-details">
-                        <p class="item-name">Item Name 3</p>
-                        <p class="item-price">Price: Ksh 700</p>
-                        <p class="item-count">Units: 6</p>
-                    </div>
-                    <button class="remove-button">Remove</button>
-                </div>
-
-                <div class="cart-item">
-                    <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                    <div class="item-details">
-                        <p class="item-name">Item Name 4</p>
-                        <p class="item-price">Price: Ksh 1100</p>
-                        <p class="item-count">Units: 1</p>
-                    </div>
-                    <button class="remove-button">Remove</button>
-                </div>
-
-                <div class="cart-item">
-                    <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                    <div class="item-details">
-                        <p class="item-name">Item Name 5</p>
-                        <p class="item-price">Price: Ksh 200</p>
-                        <p class="item-count">Units: 4</p>
-                    </div>
-                    <button class="remove-button">Remove</button>
-                </div>
-
-                <div class="total-container">
-                    <p class="total-price">Total: Ksh 10, 200</p>
-                </div>
-            </div>
-          </div>
-
           <!--Favourites Tab-->
-          <div id="favourites" class="tab-content active-tab">
-            <div class="content">
-              <p>Nothing to show here</p>
-            </div>
+          <div id="cart" class="tab-content active-tab">
           </div>
 
           <!--Testimonials Tab-->
@@ -235,7 +170,7 @@ else
                   </p>
                   <br>
                   <p>
-                    At Car Depot we value your feedback. Kindly, leave a rating score when adding a testimonial.
+                    At EBuy we value your feedback. Kindly, leave a rating score when adding a testimonial.
                   </p>
                 </div>
                 <div class="testrating">
@@ -293,12 +228,7 @@ else
                     <b>000 000 0000</b>
                     <br>
                     <br>
-                    Also, feel free to visit our dealership for a face-to-face inquiry, viewing, test drive or purchase.
                     <br>
-                    <br>
-                    <p>Locate us at:</p>
-                    <a href="">cardepotmaps</a>
-                  </p>
                 </div>
               </div>
             <?php
@@ -355,7 +285,7 @@ else
 
     <!--Scripts-->
     <script  src="/productpages/product.js"></script>
-    <script src="js/client.js"></script>
+    <script src="/profile/clientprofile/js/client.js"></script>
 
     <!--Ratings-->
     <?php
