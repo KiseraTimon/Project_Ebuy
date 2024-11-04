@@ -147,10 +147,12 @@
                 <span>Name:</span> <span>John Doe</span>
             </div>
             <div class="receipt-item">
-                <span>Address:</span> <span>123 Main St, Nairobi</span>
+                <span>Delivery Address:</span>
+                <input type="text" class="delivery_address" id="delivery_address" placeholder="Enter Your Delivery Address" required>
             </div>
             <div class="receipt-item">
-                <span>Email:</span> <span>johndoe@email.com</span>
+                <span>Email Address:</span>
+                <input type="text" class="email_address" id="email_address" placeholder="Enter Your Email address for delivery communication" required>
             </div>
             <div class="receipt-item">
                 <span>MPesa Number:</span>
