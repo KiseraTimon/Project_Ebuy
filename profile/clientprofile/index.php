@@ -5,7 +5,7 @@ session_start();
 //Database connectivity
 require '../../components/database.php';
 
-if (!isset($_SESSION['userType']) && $_SESSION['userType'] != 'client') {
+if (!isset($_SESSION['accountType']) && $_SESSION['accountType'] != 'client') {
   echo '<script>
           alert("You are not authorized to view this page.");
           window.location.href = "/index.php";
@@ -21,12 +21,12 @@ if(isset($_SESSION['userID']))
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
 
-    $profilepic = $row['profilepic'];
-    $fname = $row['fname'];
-    $lname = $row['lname'];
+    $profilepic = $row['profilePic'];
+    $fname = $row['fName'];
+    $lname = $row['lName'];
     $uname = $row['uname'];
     $email = $row['email'];
-    $password = $row['password'];
+    $password = $row['passw'];
 
     // BLOB conversion
     $profilepic = base64_encode($profilepic);
@@ -107,12 +107,60 @@ else
         <div class="right__col">
           <nav>
             <ul>
-              <li><button onclick="tabselect(event, 'cart');">My Shopping Cart</button></li>
-              <li><button onclick="tabselect(event, 'testimonials');">Testimonials</button></li>
-              <li><button onclick="tabselect(event, 'inquiries');">Inquiries</button></li>
-              <li><button onclick="tabselect(event, 'account');">Account</button></li>
+              <li><a href="" onclick="tabselect(event, 'cart');">Cart</a></li>
+              <li><a href="" onclick="tabselect(event, 'testimonials');">Testimonials</a></li>
+              <li><a href="" onclick="tabselect(event, 'inquiries');">Inquiries</a></li>
+              <li><a href="" onclick="tabselect(event, 'account');">Account</a></li>
             </ul>
           </nav>
+
+          <!--Cart-->
+
+        
+          <div class="cart-container">
+            <div class="cart-item">
+                <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
+                <div class="item-details">
+                    <p class="item-name">Item Name 1</p>
+                    <p class="item-price">Price: Ksh 500</p>
+                </div>
+                <button class="remove-button">Remove</button>
+            </div>
+
+            
+            <div class="cart-item">
+                <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
+                <div class="item-details">
+                    <p class="item-name">Item Name 2</p>
+                    <p class="item-price">Price: Ksh 300</p>
+                </div>
+                <button class="remove-button">Remove</button>
+            </div>
+
+
+            <div class="cart-item">
+                <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
+                <div class="item-details">
+                    <p class="item-name">Item Name 2</p>
+                    <p class="item-price">Price: Ksh 300</p>
+                </div>
+                <button class="remove-button">Remove</button>
+            </div>
+
+            <div class="cart-item">
+                <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
+                <div class="item-details">
+                    <p class="item-name">Item Name 2</p>
+                    <p class="item-price">Price: Ksh 100</p>
+                </div>
+                <button class="remove-button">Remove</button>
+            </div>
+
+            
+            <div class="total-container">
+                <p class="total-price">Total: Ksh 1200</p>
+            </div>
+          </div>
 
           <!--Favourites Tab-->
           <div id="cart" class="tab-content active-tab">
