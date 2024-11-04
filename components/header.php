@@ -10,17 +10,17 @@ class header
       <nav>
         <div class="nav__header">
           <div class="nav__logo">
-            <a href="/index.php">Car Depot</a>
+            <a href="/index.php">Ebuy</a>
           </div>
           <div class="nav__menu__btn" id="menu-btn">
             <i class="ri-menu-line"></i>
           </div>
         </div>
         <ul class="nav__links" id="nav-links">
-          <li><a href="/pages/about.php">About us</a></li>
-          <li><a href="/pages/stock.php">Buy a car</a></li>
-          <li><a href="/pages/sell.php">Sell a car</a></li>
-          <li><a href="/pages/stock.php?availability=Import">Import</a></li>
+          <li><a href="/pages/about.php">About</a></li>
+          <li><a href="/pages/stock.php">Explore</a></li>
+          <li><a href="/pages/sell.php">Import</a></li>
+          <li><a href="/pages/about.php">Support</a></li>
           <!-- <li><a href="#contact">Contact</a></li> -->
           <?php
           if(isset($_SESSION['uname']))
