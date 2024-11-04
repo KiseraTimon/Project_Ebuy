@@ -17,20 +17,21 @@ Complete
 
 -- Cart frontend
 -- Authentication
+-- Search algorithm
+-- Buyer's UI
 
 Work in progress
 
 -- Admin UI
 -- Seller's UI
 -- Product listings
--- Search algorithm
+-- Cart Backend
+-- Account update
+-- Product listings
+-- Checkout
 
 Pending
 
--- Cart Backend
--- Checkout
--- Account update
--- Completed search algorithm
+-- Buyer's UI favorites
 -- Product details page
--- Product listings
 -- Business owner panel
