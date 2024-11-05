@@ -19,6 +19,7 @@ Complete
 -- Authentication
 -- Search algorithm
 -- Buyer's UI
+-- Product listings
 
 Work in progress
 
@@ -27,11 +28,26 @@ Work in progress
 -- Product listings
 -- Cart Backend
 -- Account update
--- Product listings
+
+
 -- Checkout
 
 Pending
 
--- Buyer's UI favorites
+                                    Admin
+
+-- Sale analytics
+-- Money divide algorithm
+                                    Buyers
+
 -- Product details page
--- Business owner panel
+
+                                    Sellers
+-- Dashboard analytics
+-- Seller product details page
+-- Seller orders page
+-- Seller owner panel
+
+
+                                    Optional
+-- Buyer's UI favorites
