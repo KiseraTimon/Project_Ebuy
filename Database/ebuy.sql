@@ -393,3 +393,9 @@ INSERT INTO subcategories (subcatID, subcat, categoryID) VALUES
 ('226','Gift Cards', 40),
 ('227','Miscellaneous', 40),
 ('228','Limited Edition Items', 40);
+
+ALTER TABLE products
+ADD COLUMN images TEXT NOT NULL;
+
+ALTER TABLE products
+ADD COLUMN availability VARCHAR(20) NOT NULL;
