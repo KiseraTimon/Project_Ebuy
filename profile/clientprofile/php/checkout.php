@@ -1,3 +1,5 @@
+<?php session_start();?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -144,7 +146,7 @@
         
         <div class="receipt-details">
             <div class="receipt-item">
-                <span>Name:</span> <span>John Doe</span>
+                <span>Name:</span> <span><?php echo $_SESSION['fname'].' '.$_SESSION['lname']?></span>
             </div>
             <div class="receipt-item">
                 <span>Delivery Address:</span>
@@ -152,7 +154,7 @@
             </div>
             <div class="receipt-item">
                 <span>Email Address:</span>
-                <input type="text" class="email_address" id="email_address" placeholder="Enter Your Email address for delivery communication" required>
+                <input type="text" class="email_address" id="email_address" value="<?php echo $_SESSION['email']?>" required>
             </div>
             <div class="receipt-item">
                 <span>MPesa Number:</span>
@@ -163,7 +165,7 @@
         <div class="dotted-line"></div>
 
         
-        <div class="total">Total: Ksh 35.00</div>
+        <div class="total">Total: Ksh 1200.00</div>
 
         
         <button class="finish-button" onclick="showConfirmation()">Finish</button>

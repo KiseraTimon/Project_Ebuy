@@ -74,8 +74,8 @@ else
           <p><?php echo $email?></p>
 
           <ul class="about">
-            <li><span>4</span>Favourites</li>
-            <li><span>7</span>Testimonials</li>
+            <li><span>0</span>Favourites</li>
+            <li><span>1</span>Testimonials</li>
             <li><span>200,543</span>Visits</li>
           </ul>
 
@@ -108,6 +108,7 @@ else
           <nav>
             <ul>
               <li><a href="" onclick="tabselect(event, 'cart');">Cart</a></li>
+              <li><a href="" onclick="tabselect(event, 'favourite');">Favourites</a></li>
               <li><a href="" onclick="tabselect(event, 'testimonials');">Testimonials</a></li>
               <li><a href="" onclick="tabselect(event, 'inquiries');">Inquiries</a></li>
               <li><a href="" onclick="tabselect(event, 'account');">Account</a></li>
@@ -115,57 +116,59 @@ else
           </nav>
 
           <!--Cart-->
-
-        
-          <div class="cart-container">
-            <div class="cart-item">
-                <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                <div class="item-details">
-                    <p class="item-name">Item Name 1</p>
-                    <p class="item-price">Price: Ksh 500</p>
-                </div>
-                <button class="remove-button">Remove</button>
-            </div>
-
-            
-            <div class="cart-item">
-                <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                <div class="item-details">
-                    <p class="item-name">Item Name 2</p>
-                    <p class="item-price">Price: Ksh 300</p>
-                </div>
-                <button class="remove-button">Remove</button>
-            </div>
-
-
-            <div class="cart-item">
-                <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                <div class="item-details">
-                    <p class="item-name">Item Name 2</p>
-                    <p class="item-price">Price: Ksh 300</p>
-                </div>
-                <button class="remove-button">Remove</button>
-            </div>
-
-            <div class="cart-item">
-                <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                <div class="item-details">
-                    <p class="item-name">Item Name 2</p>
-                    <p class="item-price">Price: Ksh 100</p>
-                </div>
-                <button class="remove-button">Remove</button>
-            </div>
-
-            
-            <div class="total-container">
-                <p class="total-price">Total: Ksh 1200</p>
+          <div id="cart" class="tab-content active-tab">
+            <div class="cart-container">
+              <div class="cart-item">
+                  <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
+                  <div class="item-details">
+                      <p class="item-name">Item Name 1</p>
+                      <p class="item-price">Price: Ksh 500</p>
+                  </div>
+                  <button class="remove-button">Remove</button>
+              </div>
+  
+              
+              <div class="cart-item">
+                  <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
+                  <div class="item-details">
+                      <p class="item-name">Item Name 2</p>
+                      <p class="item-price">Price: Ksh 300</p>
+                  </div>
+                  <button class="remove-button">Remove</button>
+              </div>
+  
+  
+              <div class="cart-item">
+                  <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
+                  <div class="item-details">
+                      <p class="item-name">Item Name 2</p>
+                      <p class="item-price">Price: Ksh 300</p>
+                  </div>
+                  <button class="remove-button">Remove</button>
+              </div>
+  
+              <div class="cart-item">
+                  <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
+                  <div class="item-details">
+                      <p class="item-name">Item Name 2</p>
+                      <p class="item-price">Price: Ksh 100</p>
+                  </div>
+                  <button class="remove-button">Remove</button>
+              </div>
+  
+              
+              <div class="total-container">
+                  <p class="total-price">Total: Ksh 1200</p>
+                  <button class="checkout" onclick="window.location.href='/profile/clientprofile/php/checkout.php'">Checkout</button>
+              </div>
             </div>
           </div>
 
           <!--Favourites Tab-->
-          <div id="cart" class="tab-content active-tab">
+          <div id="favourites" class="tab-content">
+            <!--To be implemented-->
           </div>
-
+          
           <!--Testimonials Tab-->
           <div id="testimonials" class="tab-content">
           <div class="testpanel">
