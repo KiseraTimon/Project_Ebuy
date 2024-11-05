@@ -12,7 +12,7 @@ class buypage
                 <meta charset="utf-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
-                <title>Buy a car | Car Depot</title>
+                <title>Product Catalogue | Ebuy</title>
                 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
                 rel="stylesheet"
                 />
@@ -31,8 +31,8 @@ class buypage
         ?>
             <div class = "products">
                 <div class = "container">
-                    <h1 class = "lg-title">The Car Depot Collection</h1>
-                    <p class = "text-light">View our impressive collection of vehicles and find what fits best your needs, pocket and taste</p>
+                    <h1 class = "lg-title">The Ebuy Collection</h1>
+                    <p class = "text-light">Grab your favourite products with us and experience a convenient shopping experience</p>
 
                     <div class="searching">
                         <?php include '../components/search.php';?>

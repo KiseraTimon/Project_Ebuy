@@ -21,6 +21,11 @@ class header
           <li><a href="/pages/stock.php">Explore</a></li>
           <li><a href="/pages/sell.php">Import</a></li>
           <li><a href="/pages/about.php">Support</a></li>
+          <div class="shopping-cart">
+                    <a href="cart.php"> <!-- Updated link to cart.php -->
+                        <i class="fas fa-shopping-cart"></i> <!-- Font Awesome -->
+                    </a>
+                </div>
           <!-- <li><a href="#contact">Contact</a></li> -->
           <?php
           if(isset($_SESSION['uname']))

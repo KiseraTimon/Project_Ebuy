@@ -2,125 +2,86 @@
     <?php
 
     //Search params
-    // Fetch search parameters
+    // Retrieve search parameters from GET
     $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-    $make = isset($_GET['make']) ? $_GET['make'] : '';
-    $model = isset($_GET['model']) ? $_GET['model'] : '';
     $category = isset($_GET['category']) ? $_GET['category'] : '';
-    $minYear = isset($_GET['minyear']) ? $_GET['minyear'] : '';
-    $maxYear = isset($_GET['maxyear']) ? $_GET['maxyear'] : '';
+    $subcategory = isset($_GET['subcategory']) ? $_GET['subcategory'] : '';
     $minPrice = isset($_GET['minprice']) ? $_GET['minprice'] : '';
     $maxPrice = isset($_GET['maxprice']) ? $_GET['maxprice'] : '';
-    $minMileage = isset($_GET['minmileage']) ? $_GET['minmileage'] : '';
-    $maxMileage = isset($_GET['maxmileage']) ? $_GET['maxmileage'] : '';
-    $minCC = isset($_GET['mincc']) ? $_GET['mincc'] : '';
-    $maxCC = isset($_GET['maxcc']) ? $_GET['maxcc'] : '';
+    $condition = isset($_GET['status']) ? $_GET['status'] : '';
     $availability = isset($_GET['availability']) ? $_GET['availability'] : '';
-    $fueltype = isset($_GET['fueltype']) ? $_GET['fueltype'] : '';
-    $drivetrain = isset($_GET['drivetrain']) ? $_GET['drivetrain'] : '';
-    $transmission = isset($_GET['transmission']) ? $_GET['transmission'] : '';
-    $collection = isset($_GET['collection']) ? $_GET['collection'] : '';
+    $tags = isset($_GET['tags']) ? $_GET['tags'] : '';
+    $rating = isset($_GET['rating']) ? $_GET['rating'] : '';
 
 
     // Check if any search parameters are set
     $isSearch = false;
 
     // Start building the base query
-    $query = "SELECT * FROM vehicles WHERE 1=1";
+    $query = "SELECT * FROM products WHERE 1=1";
 
-    // Filter by keyword
-    if (!empty($keyword)) {
-        $query .= " AND (make LIKE '%$keyword%' OR model LIKE '%$keyword%' OR description LIKE '%$keyword%')";
-        $isSearch = true;
-    }
-
-    // Filter by make
-    if (!empty($make)) {
-        $query .= " AND make = '$make'";
-        $isSearch = true;
-    }
-
-    // Filter by model
-    if (!empty($model)) {
-        $query .= " AND model = '$model'";
-        $isSearch = true;
-    }
-
-    // Filter by category
-    if (!empty($category)) {
-        $query .= " AND category = '$category'";
-        $isSearch = true;
-    }
-
-    // Filter by year range
-    if (!empty($minYear)) {
-        $query .= " AND YOM >= $minYear";
-        $isSearch = true;
-    }
-    if (!empty($maxYear)) {
-        $query .= " AND YOM <= $maxYear";
-        $isSearch = true;
-    }
-
-    // Filter by price range
-    if (!empty($minPrice)) {
-        $query .= " AND price >= $minPrice";
-        $isSearch = true;
-    }
-    if (!empty($maxPrice)) {
-        $query .= " AND price <= $maxPrice";
-        $isSearch = true;
-    }
-
-    // Filter by mileage range
-    if (!empty($minMileage)) {
-        $query .= " AND mileage >= $minMileage";
-        $isSearch = true;
-    }
-    if (!empty($maxMileage)) {
-        $query .= " AND mileage <= $maxMileage";
-        $isSearch = true;
-    }
-
-    // Filter by engine capacity range
-    if (!empty($minCC)) {
-        $query .= " AND engineoutput >= $minCC";
-        $isSearch = true;
-    }
-    if (!empty($maxCC)) {
-        $query .= " AND engineoutput <= $maxCC";
-        $isSearch = true;
-    }
-
-    // Filter by availability
-    if (!empty($availability)) {
-        $query .= " AND availability = '$availability'";
-        $isSearch = true;
-    }
-
-    // Filter by fuel type
-    if (!empty($fueltype)) {
-        $query .= " AND fueltype = '$fueltype'";
-        $isSearch = true;
-    }
-
-    // Filter by drivetrain
-    if (!empty($drivetrain)) {
-        $query .= " AND drivetrain = '$drivetrain'";
-        $isSearch = true;
-    }
-
-    // Filter by transmission
-    if (!empty($transmission)) {
-        $query .= " AND transmission = '$transmission'";
-        $isSearch = true;
-    }
-
-    // Filter by collection
-    if (!empty($collection)) {
-        $query .= " AND collection = '$collection'";
-        $isSearch = true;
-    }
+        // Filter by keyword
+        if (!empty($keyword)) {
+            $query .= " AND (productName LIKE ? OR productDesc LIKE ?)";
+            $keywordParam = '%' . $keyword . '%';
+            $params[] = $keywordParam;
+            $params[] = $keywordParam;
+            $types .= 'ss';
+        }
+    
+        // Filter by category and subcategory
+        if (!empty($category)) {
+            $query .= " AND subcatID IN (SELECT subcatID FROM subcategories WHERE categoryID = ?)";
+            $params[] = $category;
+            $types .= 'i';
+        }
+        if (!empty($subcategory)) {
+            $query .= " AND subcatID = ?";
+            $params[] = $subcategory;
+            $types .= 'i';
+        }
+    
+        // Filter by price range
+        if (!empty($minPrice)) {
+            $query .= " AND price >= ?";
+            $params[] = (float)$minPrice;
+            $types .= 'd';
+        }
+        if (!empty($maxPrice)) {
+            $query .= " AND price <= ?";
+            $params[] = (float)$maxPrice;
+            $types .= 'd';
+        }
+    
+        // Filter by condition
+        if (!empty($condition)) {
+            $query .= " AND condition = ?";
+            $params[] = $condition;
+            $types .= 's';
+        }
+    
+        // Filter by availability (mapped to quantity)
+        if (!empty($availability)) {
+            if ($availability == 'In stock') {
+                $query .= " AND quantity > 0";
+            } elseif ($availability == 'Out of stock') {
+                $query .= " AND quantity = 0";
+            }
+        }
+    
+        // Filter by tags
+        if (!empty($tags)) {
+            $query .= " AND tags LIKE ?";
+            $params[] = '%' . $tags . '%';
+            $types .= 's';
+        }
+    
+        // Filter by consumer rating
+        if (!empty($rating)) {
+            $query .= " AND rating >= ?";
+            $params[] = (int)$rating;
+            $types .= 'i';
+        }
 
     // Execute the search query if parameters are set
     if ($isSearch) {
@@ -132,7 +93,7 @@
         $offset = ($page - 1) * $cardsPerPage;
 
         // Default query for all vehicles with pagination
-        $stmt = $conn->prepare("SELECT * FROM vehicles LIMIT ? OFFSET ?");
+        $stmt = $conn->prepare("SELECT * FROM products LIMIT ? OFFSET ?");
         $stmt->bind_param("ii", $cardsPerPage, $offset);
         $stmt->execute();
         $results = $stmt->get_result();
@@ -142,18 +103,13 @@
     $cardId = 1;
     while ($row = $results->fetch_assoc()) {
         // Fetch and display vehicle details (as in your current code)
-        $vehicleID = $row['vehicleID'];
-        $make = $row['make'];
-        $model = $row['model'];
-        $YOM = $row['YOM'];
+        $productID = $row['productID'];
+        $productName = $row['productName'];
+        $category = $row['category'];
+        $subcategory = $row['subcategory'];
         $price = $row['price'];
-        $mileage = $row['mileage'];
-        $fueltype = $row['fueltype'];
-        $transmission = $row['transmission'];
         $images = $row['images'];
         $availability = $row['availability'];
-        $engineoutput = $row['engineoutput'];
-        $collection = $row['collection'];
 
         // Checking availability value
         $statusClass = '';
@@ -171,7 +127,6 @@
 
         // Number formatting
         $price = number_format($price);
-        $mileage = number_format($mileage);
 
         // Display the card
         ?>
@@ -185,7 +140,7 @@
                 <?php
                 foreach ($images as $key => $image) {
                     $display = ($key == 0) ? 'block' : 'none';
-                    echo '<img class="slides" src="'.$image.'" alt="'.$make.' '.$model.'" style="display:'.$display.'">';
+                    echo '<img class="slides" src="'.$image.'" alt="'.$productName.'" style="display:'.$display.'">';
                 }
                 echo '<div class="navbuttons">';
                 echo '<button class="navbutton" onclick="plusSlides(-1, ' . $cardId . ')"><i class="ri-arrow-left-s-line"></i></button>';
@@ -194,9 +149,14 @@
                 ?>
             </div>
             <div class="cardcontent" onclick="viewer(<?php echo $vehicleID; ?>);">
-                <p><?php echo $make.' '.$model; ?></p>
-                <span><?php echo $engineoutput.' CC | '.$mileage.' KM | '.$transmission.' | '.$YOM; ?></span>
+                <p><?php echo $productName; ?></p>
+                <span><?php echo $category.' | '.$subcategory; ?></span>
                 <p><?php echo $price; ?><sup>KES</sup></p>
+                <div class="add-cart">
+                    <a href="cart.php"> <!-- Updated link to cart.php -->
+                        <i class="fas fa-shopping-cart"></i> <!-- Font Awesome -->
+                    </a>
+                </div>
             </div>
         </div>
         <?php
@@ -218,7 +178,7 @@
     $offset = ($page - 1) * $cardsPerPage;
 
     // Get the total number of vehicles to calculate the total number of pages
-    $stmtTotal = $conn->prepare("SELECT COUNT(*) AS total FROM vehicles");
+    $stmtTotal = $conn->prepare("SELECT COUNT(*) AS total FROM products");
     $stmtTotal->execute();
     $resultTotal = $stmtTotal->get_result();
     $totalVehicles = $resultTotal->fetch_assoc()['total'];
