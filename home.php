@@ -10,7 +10,7 @@ class homepage
             <head>
                 <meta charset="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <title>Car Depot</title>
+                <title>Ebuy</title>
                 
                 <!--Remix icons-->
                 <link
@@ -50,7 +50,14 @@ class homepage
 
             <div class="section__container header__container" id="home">
                 <div class="header__image">
-                    <img src="assets/header.png" alt="header" />
+                    <div class="slideshow">
+                        <img src="/assets/slideshow/phones.png" alt="header1" class="slide">
+                        <img src="/assets/slideshow/grocery.png" alt="header2" class="slide">
+                        <img src="/assets/slideshow/bag.png" alt="header3" class="slide">
+                        <img src="/assets/slideshow/shoes.png" alt="header5" class="slide">
+                        <img src="/assets/slideshow/sofa.png" alt="header5" class="slide">
+                    </div>
+                    <!-- <img src="assets/header.png" alt="header" /> -->
                 </div>
                 <div class="header__content">
                     <h1><?php if(isset($_SESSION['uname'])){echo 'Hello, '.$_SESSION['uname'].'. ';}?>Discover amazing products on Ebuy</h1>
@@ -59,12 +66,6 @@ class homepage
                     </p>
                     <div class="header__links">
                         <?php include 'components/search.php'?>
-                        <!-- <a href="#">
-                        <img src="assets/store.jpg" alt="app store" />
-                        </a>
-                        <a href="#">
-                        <img src="assets/play.png" alt="play" />
-                        </a> -->
                     </div>
                 </div>
             </div>
@@ -78,28 +79,34 @@ class homepage
             <section class="section__container steps__container" id="rent">
                 <p class="section__subheader">ONLINE PURCHASE PROCESS</p>
                 <h2 class="section__header">Ebuy has a simple 3 step process</h2>
+
+                <!--Find your perfect-->
                 <div class="steps__grid">
                     <div class="steps__card" onclick="window.location.href='/productpages/index.php'">
                         <span>
-                            <i class="ri-search-eye-fill"></i>
+                            <i class="ri-magic-fill"></i>
                         </span>
                         <p class="title">Find your perfect</p>
                         <p>
                         Browse through our wide range of products and select the one that just does it
                         </p>
                     </div>
+
+                    <!--Contact-->
                     <div class="steps__card" onclick="window.location.href='/productpages/index.php'">
                         <span>
-                            <i class="ri-customer-service-fill"></i>
+                            <i class="ri-store-3-fill"></i>
                         </span>
                         <p class="title">Contact the seller</p>
                         <p>
                             Interact directly with the seller through our curated messaging system to get more details about the product
                         </p>
                     </div>
+                    
+                    <!--Pay-->
                     <div class="steps__card" onclick="window.location.href='/productpages/index.php'">
                         <span>
-                            <i class="ri-key-2-fill"></i>
+                            <i class="ri-bank-card-2-fill"></i>
                         </span>
                         <p class="title">Pay & Collect</p>
                         <p>
@@ -116,7 +123,8 @@ class homepage
         ?>
             <section class="section__container service__container" id="service">
                 <div class="service__image">
-                    <img src="assets/tyres.png" alt="service" />
+                    
+                    <img src="assets/shopbag.png" alt="service" />
                 </div>
                 <div class="service__content">
                     <p class="section__subheader">BEST SERVICES</p>
@@ -124,17 +132,25 @@ class homepage
                     We're more than just an online market
                     </h2>
                     <ul class="service__list">
+
+                        
+                    <!--Import-->
                     <li>
                         <span><i class="ri-ship-2-fill"></i></span>
-                        <div>
-                        <h4>Import Services</h4>
-                        <p>
-                            We have a wide network of suppliers and can help you import any product from any part of the world
-                        </p>
-                        </div>
+                    
+                    <div>
+                    <h4>Import Services</h4>
+                    <p>
+                        We have a wide network of suppliers and can help you import any product from any part of the world
+                    </p>
+                    </div>
                     </li>
+
+
+                    <!--Promotions-->
                     <li>
                         <span><i class="ri-calendar-event-fill"></i></span>
+
                         <div>
                         <h4>Seasonal promotions</h4>
                         <p>
@@ -142,8 +158,10 @@ class homepage
                         </p>
                         </div>
                     </li>
+
+                    <!--Support-->
                     <li>
-                        <span><i class="ri-home-gear-fill"></i></span>
+                        <span><i class="ri-hand-coin-fill"></i></span>
                         <div>
                         <h4>Business support</h4>
                         <p>
@@ -166,31 +184,38 @@ class homepage
                     We are ensuring the best customer experience
                 </h2>
                 <div class="experience__content">
+
                     <div class="experience__card">
                     <span><i class="ri-price-tag-fill"></i></span>
                     <h4>Competitive Pricing</h4>
                     </div>
+
                     <div class="experience__card">
                     <span><i class="ri-team-fill"></i></span>
                     <h4>We Fit Everyone</h4>
                     </div>
+
                     <div class="experience__card">
                     <span><i class="ri-bank-card-fill"></i></span>
                     <h4>Flexible Payment</h4>
                     </div>
+
                     <div class="experience__card">
                     <span><i class="ri-award-fill"></i></span>
                     <h4>Scam-safe</h4>
                     </div>
+
                     <div class="experience__card">
                     <span><i class="ri-service-fill"></i></span>
                     <h4>24/7 Support</h4>
                     </div>
+
                     <div class="experience__card">
                     <span><i class="ri-car-fill"></i></span>
-                    <h4>Product Diversity</h4>
+                    <h4>Value for money</h4>
                     </div>
-                    <img src="assets/experience.png" alt="experience" />
+                    
+                    <img src="assets/girl.png" alt="experience" />
                 </div>
             </section>
         <?php

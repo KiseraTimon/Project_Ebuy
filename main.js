@@ -81,3 +81,24 @@ ScrollReveal().reveal(".experience__card", {
 //   ...scrollRevealOption,
 //   delay: 1500,
 // });
+
+//Slideshow
+document.addEventListener("DOMContentLoaded", function() {
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+
+    function showSlides() {
+        // Hide all slides
+        slides.forEach(slide => slide.style.display = "none");
+
+        // Increment index, reset if at the end
+        slideIndex = (slideIndex + 1) % slides.length;
+        
+        // Display current slide
+        slides[slideIndex].style.display = "block";
+    }
+
+    // Initial call and interval setting
+    showSlides();
+    setInterval(showSlides, 5000); // Change slide every 5 seconds
+});
