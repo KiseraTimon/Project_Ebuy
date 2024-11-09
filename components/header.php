@@ -21,11 +21,11 @@ class header
           <li><a href="/pages/stock.php">Explore</a></li>
           <li><a href="/pages/sell.php">Import</a></li>
           <li><a href="/pages/about.php">Support</a></li>
-          <div class="icon-cart">
+          <div class="icon-cart" onclick="openCart()">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"/>
                 </svg>
-                <span>0</span>
+                <span id="itemCount"></span>
             </div>
           <!-- <li><a href="#contact">Contact</a></li> -->
           <?php
@@ -147,6 +147,18 @@ class header
           }
         });
       </script>
+
+      <!-- Cart Side Panel -->
+    <div id="cartSidePanel" class="cart-side-panel">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+          </div>
+          <div id="cartItems" class="cart-items"></div>
+          <div class="cart-footer">
+            <button onclick="closeCart()">Close</button>
+            <button onclick="placeOrder()">Place Order</button>
+        </div>
+    </div>
     <?php
   }
 }

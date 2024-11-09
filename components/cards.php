@@ -153,10 +153,11 @@
                 <span><?php echo $category.' | '.$subcategory; ?></span>
                 <p><?php echo $price; ?><sup>KES</sup></p>
                 <div class="add-cart">
-                    <a href="cart.php"> <!-- Updated link to cart.php -->
-                        <i class="fas fa-shopping-cart"></i> <!-- Font Awesome -->
-                    </a>
+                    <button onclick="addToCart('<?php echo $productID; ?>', '<?php echo addslashes($productName); ?>', <?php echo $price; ?>, <?php echo $row['quantity']; ?>)">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
                 </div>
+
             </div>
         </div>
         <?php
