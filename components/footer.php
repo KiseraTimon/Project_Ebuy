@@ -17,7 +17,7 @@ class footer
                     </ul>
                 </div>
                 <div class="footer__col">
-                    <h4>About Car Depot</h4>
+                    <h4>About Ebuy</h4>
                     <ul class="footer__links">
                     <li><a href="/pages/about.php#services">Services</a></li>
                     <li><a href="/pages/about.php#story">Our Story</a></li>
@@ -44,8 +44,8 @@ class footer
                 </div>
                 </div>
                 <div class="section__container footer__bar">
-                <h4>Car Depot</h4>
-                <p>Copyright © 2024 Car Depot. All rights reserved.</p>
+                <h4>Ebuy</h4>
+                <p>Copyright © 2024 Ebuy. All rights reserved.</p>
                 <ul class="footer__socials">
                     <li>
                     <a href="#"><i class="ri-facebook-fill"></i></a>
