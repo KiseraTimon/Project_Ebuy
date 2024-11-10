@@ -20,7 +20,7 @@ if (isset($_GET['productID'])) {
             // Database fields
             $productName = $row['productName'];
             $productDesc = $row['productDesc'];
-            $price = $row['price'];
+            $productPrice = $row['price'];
             $pricestatus = $row['pricestatus'];
             $quantity = $row['quantity'];
             $category = $row['category'];
@@ -30,6 +30,9 @@ if (isset($_GET['productID'])) {
 
             //Decoding JSON image paths to PHP array
             $images = json_decode($images, true);
+
+            //Number formatting
+            $price = number_format($productPrice);
 
             // Fetching category name
             $catquery = "SELECT category FROM categories WHERE categoryID = '$category'";
@@ -62,6 +65,9 @@ if (isset($_GET['productID'])) {
     <link rel="stylesheet" href="/pageclasses/assets/css/viewer.css">
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/defaults.css">
+
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -114,27 +120,9 @@ if (isset($_GET['productID'])) {
                     <p>
                         <?php echo $productName?>
                     </p>
-                    <?php
-                    if (isset($_SESSION['userID']))
-                    {
-                        ?>
-                        <form action="/pageclasses/assets/php/favorite.php" method="POST">
-                            <input type="hidden" name="vehicleID" value="<?php echo $vehicleID; ?>">
-                            <input type="hidden" name="userID" value="<?php echo $_SESSION['userID']; ?>">
-                            <button id="favbutton" class="ri-bookmark-line"></button>
-                            </i>
-                        </form>
-                        <?php
-                    }
-                    else
-                    {
-                        ?>
-                        <button class="fav" id="favbutton" class="ri-bookmark-line" onclick="alert('Login to add to favourites'); window.location.href='/pages/login.php';">
-                            <i class="ri-bookmark-line"></i>
-                        </button>
-                        <?php
-                    }
-                    ?>
+                    <button onclick="addToCart('<?php echo $productID; ?>', '<?php echo addslashes($productName); ?>', <?php echo $productPrice; ?>, <?php echo $quantity; ?>)">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
                 </div>
                 <div class="description">
                     <p><?php echo $productDesc?></p>
