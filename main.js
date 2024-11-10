@@ -104,7 +104,16 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Cart Data Structure
-let cart = {};
+let cart = loadCart();
+
+function loadCart() {
+  return JSON.parse(localStorage.getItem('cart')) || {};
+}
+
+// Save cart data to localStorage
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
 
 // Show/Hide Cart Side Panel
 function openCart() {
@@ -122,6 +131,8 @@ function addToCart(productID, productName, productPrice, maxQuantity) {
     } else if (cart[productID].quantity < maxQuantity) {
         cart[productID].quantity++;
     }
+
+    saveCart();
     renderCart();
     openCart();
 }
@@ -135,37 +146,35 @@ function updateQuantity(productID, change) {
       } else if (cart[productID].quantity > cart[productID].maxQuantity) {
           cart[productID].quantity = cart[productID].maxQuantity;
       }
-      localStorage.setItem('cart', JSON.stringify(cart));
+      
+      saveCart();
       renderCart();
   }
 }
 
 // Render Cart
 function renderCart() {
-    const cartItemsContainer = document.getElementById('cartItems');
-    cartItemsContainer.innerHTML = '';
-    for (const [productID, item] of Object.entries(cart)) {
-        const itemElement = document.createElement('div');
-        itemElement.classList.add('cart-item');
-        itemElement.innerHTML = `
-            <span>${item.name}</span>
-            <span>${(item.price * item.quantity).toFixed(2)} KES</span>
-            <button class="counter" onclick="updateQuantity('${productID}', -1)">-</button>
-            <span>${item.quantity}</span>
-            <button class="counter" onclick="updateQuantity('${productID}', 1)">+</button>
-        `;
+  const cartItemsContainer = document.getElementById('cartItems');
+  cartItemsContainer.innerHTML = '';
+  for (const [productID, item] of Object.entries(cart)) {
+      const itemElement = document.createElement('div');
+      itemElement.classList.add('cart-item');
+      itemElement.innerHTML = `
+          <span>${item.name}</span>
+          <span>${(item.price * item.quantity).toFixed(2)} KES</span>
+          <button class="counter" onclick="updateQuantity('${productID}', -1)">-</button>
+          <span>${item.quantity}</span>
+          <button class="counter" onclick="updateQuantity('${productID}', 1)">+</button>
+      `;
+      cartItemsContainer.appendChild(itemElement);
+  }
 
-        function countItems() {
-            let itemCount = 0;
-            for (const item of Object.values(cart)) {
-                itemCount += item.quantity;
-            }
-            return itemCount;
-        }
+  document.getElementById('itemCount').innerHTML = countItems();
+}
 
-        document.getElementById('itemCount').innerHTML = countItems();
-        cartItemsContainer.appendChild(itemElement);
-    }
+// Count Total Items
+function countItems() {
+  return Object.values(cart).reduce((total, item) => total + item.quantity, 0);
 }
 
 // Place Order
@@ -177,6 +186,8 @@ function placeOrder() {
     alert('Order placed!');
     cart = {};
     localStorage.removeItem('cart');
+
+    saveCart();
     renderCart();
     closeCart();
 }

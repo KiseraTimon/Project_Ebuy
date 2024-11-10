@@ -107,7 +107,7 @@
         $productName = $row['productName'];
         $category = $row['category'];
         $subcategory = $row['subcategory'];
-        $price = $row['price'];
+        $productPrice = $row['price'];
         $images = $row['images'];
         $availability = $row['availability'];
 
@@ -126,7 +126,7 @@
         $images = json_decode($images, true);
 
         // Number formatting
-        $price = number_format($price);
+        $price = number_format($productPrice);
 
         // Display the card
         ?>
@@ -153,7 +153,7 @@
                 <span><?php echo $category.' | '.$subcategory; ?></span>
                 <p><?php echo $price; ?><sup>KES</sup></p>
                 <div class="add-cart">
-                    <button onclick="addToCart('<?php echo $productID; ?>', '<?php echo addslashes($productName); ?>', <?php echo $price; ?>, <?php echo $row['quantity']; ?>)">
+                    <button onclick="addToCart('<?php echo $productID; ?>', '<?php echo addslashes($productName); ?>', <?php echo $productPrice; ?>, <?php echo $row['quantity']; ?>)">
                         <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
                 </div>

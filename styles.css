@@ -1229,7 +1229,6 @@ svg{
   font-family: font39;
   font-size: 1em;
   width: 40px;
-  margin-top: 20px;
   border-radius: 5px;
   padding: 10px;
   border: none;
@@ -1237,4 +1236,12 @@ svg{
   outline: none;
   color: white;
   text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.cart-item button:hover
+{
+  background-color: var(--color-3);
+  transition: 0.3s;
 }
