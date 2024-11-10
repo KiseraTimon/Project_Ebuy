@@ -57,14 +57,11 @@ class header
           <?php
           if(isset($_SESSION['uname']))
           {
-            // echo '<a class="btn btn__primary" href="/forms/logout.php">Logout</a>';
-            // echo '<a class="btn btn__secondary" href="/forms/login.html"><img src="/forms/assets/account3.png"></a>';
-
             //Database connection
-            require_once 'database.php';
+            require 'database.php';
 
             //Fetch profilepic from database
-            $stmt = $conn->prepare("SELECT profilepic FROM users WHERE uname = ?");
+            $stmt = $conn->prepare("SELECT profilePic FROM users WHERE uname = ?");
             $stmt->bind_param("s", $_SESSION['uname']);
             $stmt->execute();
             $stmt->store_result();
