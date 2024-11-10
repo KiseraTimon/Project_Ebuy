@@ -27,6 +27,7 @@ if (isset($_GET['productID'])) {
             $subcategory = $row['subcategory'];
             $userID = $row['userID'];
             $images = $row['images'];
+            $availability = $row['availability'];
 
             //Decoding JSON image paths to PHP array
             $images = json_decode($images, true);
@@ -170,7 +171,7 @@ if (isset($_GET['productID'])) {
         <?php
         if (isset($_SESSION['userID']))
         {
-            if ($_SESSION['userType'] == 'admin')
+            if ($_SESSION['accountType'] == 'seller')
             {
                 ?>
                 <button id="editor" onclick="admin(event, 'editor');">Administrator Controls</button>
@@ -178,7 +179,7 @@ if (isset($_GET['productID'])) {
                     <h2>Administrator Vehicle Editor Panel</h2>
                     <p>NOTE:
                         <br>
-                        Editing the vehicle details will affect the vehicle listing on the website.
+                        Editing the product details will affect the product listing on the website.
                         <br>
                         Ensure that the details are accurate before saving.
                         <br>
@@ -188,58 +189,44 @@ if (isset($_GET['productID'])) {
                         <br>
                     </p>
                     <br>
-                    <form action="/pageclasses/assets/php/vehicleupdate.php" method="POST">
+                    <form action="/pageclasses/assets/php/productupdate.php" method="POST">
                         <h3>Original details</h3>
-                        <input type="hidden" name="vehicleID" value="<?php echo $vehicleID; ?>">
+                        <input type="hidden" name="productID" value="<?php echo $productID; ?>">
+                        <!--Product Name-->
+                        <label>Product name</label>
+                        <input type="text" value="<?php echo $productName?>" disabled>
+                        <!--Price-->
                         <label>Current price</label>
                         <input type="text" value="<?php echo $price?>" disabled>
-                        <label>Mileage</label>
-                        <input type="text" value="<?php echo $mileage?>" disabled>
-                        <label>Year of manufacture</label>
-                        <input type="text" value="<?php echo $YOM?>" disabled>
+                        <!--Price Status-->
                         <label>Price status</label>
                         <input type="text" value="<?php echo $pricestatus?>" disabled>
-                        <label>Collection</label>
-                        <input type="text" value="<?php echo $collection?>" disabled>
-                        <label>Tags</label>
-                        <input type="text" value="<?php echo $tags?>" disabled>
+                        <!--Quantity-->
+                        <label>Quantity</label>
+                        <input type="text" value="<?php echo $quantity?>" disabled>
+                        <!--Availability-->
                         <label>Availability</label>
                         <input type="text" value="<?php echo $availability?>" disabled>
-                        <label>Plates</label>
-                        <input type="text" value="<?php echo $plates?>" disabled>
-                        <br>
 
                         <h3>Editor</h3>
 
+                        <!--Product Name-->
+                        <label>Edit product name</label>
+                        <input type="text" name="productName">
+                        <!--Price-->
                         <label>Edit price</label>
                         <input type="number" name="price">
-                        <label>Edit mileage</label>
-                        <input type="number" name="mileage">
-                        <label>Edit year of manufacture</label>
-                        <input type="number" name="YOM">
+                        <!--Price Status-->
                         <label>Edit Price status</label>
                         <select name="pricestatus" required>
-                            <option>N/A</option>
+                            <option value="">Price status</option>
                             <option>Fixed</option>
                             <option>Negotiable</option>
                         </select>
-                        <label>Edit collection</label>
-                        <select name="collection" required>
-                            <option>N/A</option>
-                            <option>Exotics</option>
-                            <option>City cars</option>
-                            <option>Classics</option>
-                            <option>Trucks</option>
-                            <option>Asian Premiums</option>
-                            <option>European Premiums</option>
-                        </select>
-                        <label>Edit tags</label>
-                        <select name="tags" required>
-                            <option>N/A</option>
-                            <option>Special offer</option>
-                            <option>Bestseller</option>
-                            <option></option>
-                        </select>
+                        <!--Quantity-->
+                        <label>Edit quantity</label>
+                        <input type="number" name="quantity">
+                        <!--Availability-->
                         <label>Edit availability</label>
                         <select name="availability" required>
                             <option>Available</option>
@@ -248,8 +235,6 @@ if (isset($_GET['productID'])) {
                             <option>Import</option>
                             <option>Showcase</option>
                         </select>
-                        <label>Edit plates</label>
-                        <input type="text" name="plates">
                         <hr>
                         <h3>
                             Edit all fields before submission
