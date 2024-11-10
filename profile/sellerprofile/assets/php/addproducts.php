@@ -1,6 +1,8 @@
 <?php
 // Database connection
+session_start();
 require ('../../../../components/database.php');
+require_once('../../../../loader.php');
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -8,9 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productName = $_POST['productName'];
     $productDesc = $_POST['productDesc'];
     $price = $_POST['price'];
+    $pricestatus = $_POST['pricestatus'];
     $quantity = $_POST['quantity'];
     $category = $_POST['category'];
     $subcategory = $_POST['subcategory'];
+    $userID = $_SESSION['userID'];
     $availability = $_POST['availability'];
 
     // Handle the image uploads
@@ -56,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $images = json_encode($uploadedImages);
 
     // Prepare and bind statement
-    $stmt = $conn->prepare("INSERT INTO products (productName, productDesc, price, quantity, category, subcategory, images, availability) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssdissss", $productName, $productDesc, $price, $quantity, $category, $subcategory, $images, $availability);
+    $stmt = $conn->prepare("INSERT INTO products (productName, productDesc, price, pricestatus, quantity, category, subcategory, userID, images, availability) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssisiisiss", $productName, $productDesc, $price, $pricestatus, $quantity, $category, $subcategory, $userID, $images, $availability);
 
     // Execute statement and check for success
     if ($stmt->execute()) {
@@ -102,133 +106,92 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="number"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        input[type="file"] {
-            margin-bottom: 15px;
-        }
-        input[type="submit"] {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
-        p {
-            text-align: center;
-        }
-    </style>
+    <title>Add Products | Ebuy</title>
+
+    <link rel="stylesheet" href="../css/addproducts.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/defaults.css">
 </head>
 <body>
 
-        <!--Header-->
-        <?php
-        require_once('/loader.php');
-
-        $header->navigation();
-        $footer->footercont();
-        ?>
-
-    <h1>Add a New Product</h1>
-    <form action="addproducts.php" method="POST" enctype="multipart/form-data">
-        <label for="productName">Product Name:</label>
-        <input type="text" id="productName" name="productName" required>
-        
-        <label for="productDesc">Description:</label>
-        <textarea id="productDesc" name="productDesc" required></textarea>
-
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" min="1" required>
-        
-        <label for="price">Price:</label>
-        <input type="number" id="price" name="price" step="0.01" required>
-        
-        <label for="category">Category:</label>
-        <!-- <input type="text" id="category" name="category" required> -->
-        <form method="GET">
-            <select id="category" name="category" required>
-                <option value="">Select category</option>
-                <?php
-                while ($row = mysqli_fetch_assoc($categoryResult)) {
-                    $selected = ($row['categoryID'] == $selectedCategory) ? 'selected' : '';
-                    echo '<option value="'.$row['categoryID'].'" '.$selected.'>'.$row['category'].'</option>';
-                }
-                ?>
-            </select>
-
-
-            <label for="subcategory">Subcategory:</label>
-            <select id="subcategory" name="subcategory" required>
-                <option value="">Select subcategory</option>
-                <!-- Script to populate subcategories based on selected category -->
-                <script>
-                    document.getElementById('category').addEventListener('change', function() {
-                        var selectedCategoryID = this.value;
-                        var subcategories = <?php echo json_encode($subcategoriesByCategory); ?>;
-                        var subcategoryDropdown = document.getElementById('subcategory');
-                        subcategoryDropdown.innerHTML = '<option value="">Select subcategory</option>';
-                        if (selectedCategoryID in subcategories) {
-                            subcategories[selectedCategoryID].forEach(function(subcat) {
-                                var option = document.createElement('option');
-                                option.value = subcat;
-                                option.text = subcat;
-                                subcategoryDropdown.add(option);
-                            });
-                        }
-                    });
-                </script>
-            </select>
-        
-        
-            <label for="images">Images:</label>
-            <input type="file" id="images" name="images[]" multiple required>
+    <div class="add-prod">
+        <form class="add-form" action="addproducts.php" method="POST" enctype="multipart/form-data">
+            <h1>Add a New Product</h1>
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" required>
             
-            <label for="availability">Availability:</label>
-            <select id="availability" name="availability" required>
-                <option value="in stock">In Stock</option>
-                <option value="out of stock">Out of Stock</option>
+            <label for="productDesc">Description:</label>
+            <textarea id="productDesc" name="productDesc" required></textarea>
+    
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" required>
+            
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" required>
+
+            <label for="pricestatus">Price Status:</label>
+            <select id="pricestatus" name="pricestatus" required>
+                <option value="Negotiable">Negotiable</option>
+                <option value="Fixed">Fixed</option>
             </select>
             
-            <input type="submit" value="Add Product">
+            <label for="category">Category:</label>
+            <!-- <input type="text" id="category" name="category" required> -->
+            <form method="GET">
+                <select id="category" name="category" required>
+                    <option value="">Select category</option>
+                    <?php
+                    while ($row = mysqli_fetch_assoc($categoryResult)) {
+                        $selected = ($row['categoryID'] == $selectedCategory) ? 'selected' : '';
+                        echo '<option value="'.$row['categoryID'].'" '.$selected.'>'.$row['category'].'</option>';
+                    }
+                    ?>
+                </select>
+    
+    
+                <label for="subcategory">Subcategory:</label>
+                <select id="subcategory" name="subcategory" required>
+                    <option value="">Select subcategory</option>
+                    <!-- Script to populate subcategories based on selected category -->
+                    <script>
+                        document.getElementById('category').addEventListener('change', function() {
+                            var selectedCategoryID = this.value;
+                            var subcategories = <?php echo json_encode($subcategoriesByCategory); ?>;
+                            var subcategoryDropdown = document.getElementById('subcategory');
+                            subcategoryDropdown.innerHTML = '<option value="">Select subcategory</option>';
+                            if (selectedCategoryID in subcategories) {
+                                subcategories[selectedCategoryID].forEach(function(subcat) {
+                                    var option = document.createElement('option');
+                                    option.value = subcat;
+                                    option.text = subcat;
+                                    subcategoryDropdown.add(option);
+                                });
+                            }
+                        });
+                    </script>
+                </select>
+            
+            
+                <label for="images">Images:</label>
+                <input type="file" id="images" name="images[]" multiple required>
+                
+                <label for="availability">Availability:</label>
+                <select id="availability" name="availability" required>
+                    <option value="Available">Available</option>
+                    <option value="Sold">Sold</option>
+                    <option value="Reserved">Reserved</option>
+                    <option value="Import">Import</option>
+                    <option value="Showcase">Showcase</option>
+                </select>
+                
+                <input type="submit" value="Add Product">
+            </form>
         </form>
-    </form>
-</body>
-</html>
+    </div>
+
+
+    <!--Footer-->
+    <?php
+    $footer->footercont();
+    ?>

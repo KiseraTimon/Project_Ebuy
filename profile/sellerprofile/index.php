@@ -1,15 +1,28 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['accountType']) || $_SESSION['accountType'] !== 'seller') {
+    echo '<script>
+    alert("You are not authorized to access this page");
+    window.location.href = "/pages/login.php";
+    </script>';
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sellers Portal - eCommerce</title>
+    <title>Sellers Portal | Ebuy</title>
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
     <header>
-        <h1>Welcome to the Sellers' Portal</h1>
+        <h1>Welcome, <?php echo $_SESSION['fname'].' '.$_SESSION['lname'];?></h1>
     </header>
 
     <div class="container">
@@ -24,7 +37,7 @@
         
         <div id="dashboard" class="section active">
             <h2>Dashboard</h2>
-            <p>Welcome, Seller! This is your dashboard. you can see an overview of your store's performance.</p>
+            <p>Welcome, <?php echo $_SESSION['fname'].' '.$_SESSION['lname'];?>! This is your dashboard. you can see an overview of your store's performance.</p>
         </div>
 
         <div id="add-product" class="section">

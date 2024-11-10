@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+:root {
+    --primary-color: #fe5b3e;
+    --text-dark: #0f172a;
+    --text-light: #475569;
+    --extra-light: #f2f2f2;
+    --white: #ffffff;
+    --max-width: 1200px;
+    --gradient: linear-gradient(to bottom, #fe5c3c, #fc8023);
+    --color-2: #474fa0;
+    --color-3: #3c4286;
+    --favourites: #f1c40f;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+}
+
+.add-prod
+{
+    max-width: 70%;
+    margin: auto;
+}
+
+.add-prod h1
+{
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+}
+
+.add-prod .add-form
+{
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.add-prod .add-form label
+{
+    font-family: font39;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.add-prod .add-form textarea
+{
+    height: 100px;
+}
+
+.add-prod .add-form select
+{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-prod .add-form input[type="text"], .add-prod .add-form input[type="number"]
+{
+    font-family: font39;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-prod .add-form input[type="file"]
+{
+    margin-bottom: 15px;
+}
+
+.add-prod .add-form input[type="submit"] {
+    background-color: var(--color-2);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-prod .add-form input[type="submit"]:hover {
+    background-color: var(--color-3);
+}
