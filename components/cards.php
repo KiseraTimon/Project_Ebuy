@@ -148,7 +148,7 @@
                 echo '</div>';
                 ?>
             </div>
-            <div class="cardcontent" onclick="viewer(<?php echo $vehicleID; ?>);">
+            <div class="cardcontent" onclick="viewer(<?php echo $productID; ?>);">
                 <p><?php echo $productName; ?></p>
                 <span><?php echo $category.' | '.$subcategory; ?></span>
                 <p><?php echo $price; ?><sup>KES</sup></p>

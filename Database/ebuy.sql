@@ -399,3 +399,6 @@ ADD COLUMN images TEXT NOT NULL;
 
 ALTER TABLE products
 ADD COLUMN availability VARCHAR(20) NOT NULL;
+
+ALTER TABLE products
+ADD COLUMN pricestatus VARCHAR(30) NOT NULL AFTER price;

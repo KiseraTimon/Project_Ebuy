@@ -36,6 +36,6 @@ document.querySelectorAll('.cardimage').forEach((card, index) => {
 });
 
 // Card content onclick function
-function viewer(vehicleID) {
-    window.location.href = `/pages/viewer.php?vehicleID=${vehicleID}`;
+function viewer(productID) {
+    window.location.href = `/pages/viewer.php?productID=${productID}`;
 }
