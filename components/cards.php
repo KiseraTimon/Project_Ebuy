@@ -148,13 +148,13 @@
                 echo '</div>';
                 ?>
             </div>
-            <div class="cardcontent" onclick="viewer(<?php echo $productID; ?>);">
+            <div class="cardcontent" ondblclick="viewer(<?php echo $productID; ?>);">
                 <p><?php echo $productName; ?></p>
                 <span><?php echo $category.' | '.$subcategory; ?></span>
                 <p><?php echo $price; ?><sup>KES</sup></p>
                 <div class="add-cart">
                     <button onclick="addToCart('<?php echo $productID; ?>', '<?php echo addslashes($productName); ?>', <?php echo $productPrice; ?>, <?php echo $row['quantity']; ?>)">
-                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                        <i class="fas fa-shopping-cart"></i>
                     </button>
                 </div>
 

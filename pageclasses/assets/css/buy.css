@@ -259,6 +259,15 @@ header
     font-size: 1.2rem;
 }
 
+.cardcontent button
+{
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
 .cardcontent .fav
 {
     position: absolute;
