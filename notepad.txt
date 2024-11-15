@@ -50,3 +50,6 @@ Pending
 
                                     Optional
 -- Buyer's UI favorites
+
+
+-- Alternwative registration for business owners
