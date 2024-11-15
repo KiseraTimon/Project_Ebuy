@@ -152,6 +152,8 @@
                 <p><?php echo $productName; ?></p>
                 <span><?php echo $category.' | '.$subcategory; ?></span>
                 <p><?php echo $price; ?><sup>KES</sup></p>
+
+                <!--Add to cart button-->
                 <div class="add-cart">
                     <button onclick="addToCart('<?php echo $productID; ?>', '<?php echo addslashes($productName); ?>', <?php echo $productPrice; ?>, <?php echo $row['quantity']; ?>)">
                         <i class="fas fa-shopping-cart"></i>
