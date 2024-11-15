@@ -183,9 +183,7 @@ function placeOrder() {
         alert('Your cart is empty!');
         return;
     }
-    alert('Order placed!');
-    cart = {};
-    localStorage.removeItem('cart');
+    window.location.href = "/pages/checkout.php";
 
     saveCart();
     renderCart();
