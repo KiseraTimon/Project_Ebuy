@@ -107,7 +107,7 @@ else
         <div class="right__col">
           <nav>
             <ul>
-              <li><a href="" onclick="tabselect(event, 'cart');">Cart</a></li>
+              <li><a href="" onclick="tabselect(event, 'cart');">Orders</a></li>
               <li><a href="" onclick="tabselect(event, 'favourite');">Favourites</a></li>
               <li><a href="" onclick="tabselect(event, 'testimonials');">Testimonials</a></li>
               <li><a href="" onclick="tabselect(event, 'inquiries');">Inquiries</a></li>
@@ -116,53 +116,81 @@ else
           </nav>
 
           <!--Cart-->
+          
+          <?php
+
+          //Fetch order table where userID = $userID
+          
+          if (isset($_SESSION['userID'])) {
+            $userID = $_SESSION['userID'];
+
+            $orderQuery = "SELECT * FROM orders WHERE buyerUID = ?";
+            $stmt = $conn->prepare($orderQuery);
+            $stmt->bind_param("i", $userID);
+            $stmt->execute();
+            $orderResult = $stmt->get_result();
+
+            $orders = [];
+              while ($row = $orderResult->fetch_assoc()) {
+                  // Decode JSON fields into PHP arrays
+                  $row['itemNames'] = json_decode($row['itemNames'], true);
+                  $row['itemQuantities'] = json_decode($row['itemQuantities'], true);
+                  $row['itemPrices'] = json_decode($row['itemPrices'], true);
+                  $row['itemTotalPrices'] = json_decode($row['itemTotalPrices'], true);
+                  $row['sellerUID'] = json_decode($row['sellerUID'], true);
+                  $orders[] = $row;
+
+                  $status = $row['status'];
+              }
+              $stmt->close();
+          } else {
+              header("Location: ../../index.php");
+          }
+          ?>
+
+
           <div id="cart" class="tab-content active-tab">
-            <div class="cart-container">
-              <div class="cart-item">
-                  <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                  <div class="item-details">
-                      <p class="item-name">Item Name 1</p>
-                      <p class="item-price">Price: Ksh 500</p>
-                  </div>
-                  <button class="remove-button">Remove</button>
-              </div>
+          <div class="cart-container">
+            <?php if (empty($orders)): ?>
+                <p>No items in your cart yet!</p>
+            <?php else: ?>
+                <?php foreach ($orders as $order): ?>
+                    <?php for ($i = 0; $i < count($order['itemNames']); $i++): ?>
+                        <div class="cart-item">
+                            <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
+                            <div class="item-details">
+                                <p class="item-name"><?= htmlspecialchars($order['itemNames'][$i]) ?></p>
+                                <p class="item-count">Quantity: <?= htmlspecialchars($order['itemQuantities'][$i]) ?></p>
+                                <p class="item-price">Price per Item: Ksh <?= htmlspecialchars($order['itemPrices'][$i]) ?></p>
+                            </div>
+                            <button class="status-button"><?php echo $status?></button>
+                        </div>
+                    <?php endfor; ?>
+                <?php endforeach; ?>
+                <div class="total-container">
+                    <p class="total-price">
+                        Grand Total: Ksh <?= array_sum(array_column($orders, 'totalPrice')) ?>
+                    </p>
+                </div>
+            <?php endif; ?>
+        </div>
   
-              
-              <div class="cart-item">
-                  <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                  <div class="item-details">
-                      <p class="item-name">Item Name 2</p>
-                      <p class="item-price">Price: Ksh 300</p>
-                  </div>
-                  <button class="remove-button">Remove</button>
-              </div>
-  
-  
-              <div class="cart-item">
-                  <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                  <div class="item-details">
-                      <p class="item-name">Item Name 2</p>
-                      <p class="item-price">Price: Ksh 300</p>
-                  </div>
-                  <button class="remove-button">Remove</button>
-              </div>
-  
-              <div class="cart-item">
+              <!-- <div class="cart-item">
                   <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
                   <div class="item-details">
                       <p class="item-name">Item Name 2</p>
                       <p class="item-price">Price: Ksh 100</p>
                   </div>
                   <button class="remove-button">Remove</button>
-              </div>
+              </div> -->
   
               
-              <div class="total-container">
+              <!-- <div class="total-container">
                   <p class="total-price">Total: Ksh 1200</p>
-                  <button class="checkout" onclick="window.location.href='/profile/clientprofile/php/checkout.php'">Checkout</button>
+              but <button class="checkout" onclick="window.location.href='/profile/clientprofile/php/checkout.php'">Checkout</button>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!--Favourites Tab-->
           <div id="favourites" class="tab-content">
