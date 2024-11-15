@@ -403,6 +403,7 @@ ADD COLUMN availability VARCHAR(20) NOT NULL;
 ALTER TABLE products
 ADD COLUMN pricestatus VARCHAR(30) NOT NULL AFTER price;
 
+-- DROP TABLE orders;
 CREATE TABLE orders
 (
     -- Order Details
@@ -425,6 +426,6 @@ CREATE TABLE orders
     itemTotalPrices TEXT NOT NULL,
 
     -- Seller Details
-    sellerUID INT NOT NULL,
+    sellerUID TEXT NOT NULL,
     status VARCHAR(20) NOT NULL
 );

@@ -132,9 +132,24 @@ function addToCart(productID, productName, productPrice, maxQuantity, userID) {
         cart[productID].quantity++;
     }
 
+    //Save addtocart params in variables
+    var productName = productName;
+    var productPrice = productPrice;
+    var quantity = maxQuantity;
+    var productID = productID;
+    var sellerUID = userID;
+
     saveCart();
     renderCart();
     openCart();
+}
+
+function cartdata(productName, productPrice, quantity, productID, sellerUID){
+    var productName = productName;
+    var productPrice = productPrice;
+    var quantity = quantity;
+    var productID = productID;
+    var sellerUID = sellerUID;
 }
 
 // Update Quantity
