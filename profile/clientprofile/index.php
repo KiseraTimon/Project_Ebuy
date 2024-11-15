@@ -116,7 +116,6 @@ else
           </nav>
 
           <!--Cart-->
-          
           <?php
 
           //Fetch order table where userID = $userID
@@ -174,24 +173,8 @@ else
                 </div>
             <?php endif; ?>
         </div>
-  
-              <!-- <div class="cart-item">
-                  <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
-                  <div class="item-details">
-                      <p class="item-name">Item Name 2</p>
-                      <p class="item-price">Price: Ksh 100</p>
-                  </div>
-                  <button class="remove-button">Remove</button>
-              </div> -->
-  
-              
-              <!-- <div class="total-container">
-                  <p class="total-price">Total: Ksh 1200</p>
-              but <button class="checkout" onclick="window.location.href='/profile/clientprofile/php/checkout.php'">Checkout</button>
-              </div>
-            </div>
-          </div> -->
-
+        </div>
+        
           <!--Favourites Tab-->
           <div id="favourites" class="tab-content">
             <!--To be implemented-->
