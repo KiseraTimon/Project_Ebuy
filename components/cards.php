@@ -155,7 +155,7 @@
 
                 <!--Add to cart button-->
                 <div class="add-cart">
-                    <button onclick="addToCart('<?php echo $productID; ?>', '<?php echo addslashes($productName); ?>', <?php echo $productPrice; ?>, <?php echo $row['quantity']; ?>)">
+                    <button onclick="addToCart('<?php echo $productID; ?>', '<?php echo addslashes($productName); ?>', <?php echo $productPrice; ?>, <?php echo $row['quantity']; ?>, <?php echo $row['userID'];?>)">
                         <i class="fas fa-shopping-cart"></i>
                     </button>
                 </div>

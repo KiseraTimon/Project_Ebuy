@@ -402,3 +402,29 @@ ADD COLUMN availability VARCHAR(20) NOT NULL;
 
 ALTER TABLE products
 ADD COLUMN pricestatus VARCHAR(30) NOT NULL AFTER price;
+
+CREATE TABLE orders
+(
+    -- Order Details
+    orderID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    -- Buyer Details
+    buyerUID INT NOT NULL,
+    fname VARCHAR(100) NOT NULL,
+    lname VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    address TEXT NOT NULL,
+    phone INT NOT NULL,
+    
+    -- Product Details
+    totalPrice INT NOT NULL,
+    itemNames TEXT NOT NULL,
+    itemQuantities TEXT NOT NULL,
+    itemPrices TEXT NOT NULL,
+    itemTotalPrices TEXT NOT NULL,
+
+    -- Seller Details
+    sellerUID INT NOT NULL,
+    status VARCHAR(20) NOT NULL
+);

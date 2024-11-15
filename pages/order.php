@@ -60,7 +60,6 @@
                     <p>Total</p>
                 </div> -->
             </div>
-            <!--Populate from JS-->
         </div>
 
         <!--Checkout Container-->
@@ -119,21 +118,80 @@ $footer->footercont();
 ?>
 
 <script>
+// Cart functionality in checkout page
 document.addEventListener("DOMContentLoaded", function () {
     const cart = JSON.parse(localStorage.getItem("cart")) || {};
     const listItemsContainer = document.querySelector(".list-items");
-    listItemsContainer.innerHTML = ""; // Clear default template content
+    const totalPriceElement = document.createElement("div");
+
+    let totalPrice = 0;
+    let itemNames = [];
+    let itemQuantities = [];
+    let itemPrices = [];
+    let itemTotalPrices = [];
+    let sellerUID = [];
+
+    // Clear the container
+    listItemsContainer.innerHTML = "";
 
     for (const [productID, item] of Object.entries(cart)) {
+        // Skip if item data is invalid
+        if (!item.name || !item.price || !item.quantity) continue;
+
+        // Calculate total price for current item
+        const itemTotalPrice = item.price * item.quantity;
+        totalPrice += itemTotalPrice;
+
+        // Populate arrays for form submission
+        itemNames.push(item.name);
+        itemQuantities.push(item.quantity);
+        itemPrices.push(item.price);
+        itemTotalPrices.push(itemTotalPrice);
+        sellerUID.push(item.sellerUID);
+
+        // Create item element
         const itemElement = document.createElement("div");
         itemElement.classList.add("item");
         itemElement.innerHTML = `
             <h2>${item.name}</h2>
             <p>Price: ${item.price} KES</p>
             <p>Quantity: ${item.quantity}</p>
-            <p>Total: ${(item.price * item.quantity).toFixed(2)} KES</p>
+            <p>Total: ${itemTotalPrice.toFixed(2)} KES</p>
         `;
         listItemsContainer.appendChild(itemElement);
     }
+
+    // Show total price
+    totalPriceElement.innerHTML = `<h2>Total Price: ${totalPrice.toFixed(2)} KES</h2>`;
+    listItemsContainer.appendChild(totalPriceElement);
+
+    // Add hidden inputs to form
+    const form = document.querySelector(".checkout-container form");
+
+    const inputs = [
+        { name: "totalPrice", value: totalPrice.toFixed(2) },
+        { name: "itemNames", value: JSON.stringify(itemNames) },
+        { name: "itemQuantities", value: JSON.stringify(itemQuantities) },
+        { name: "itemPrices", value: JSON.stringify(itemPrices) },
+        { name: "itemTotalPrices", value: JSON.stringify(itemTotalPrices) },
+        { name: "sellerUID", value: JSON.stringify(sellerUID) },
+    ];
+
+    inputs.forEach(({ name, value }) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = name;
+        input.value = value;
+        form.appendChild(input);
+    });
+
+    // Handle empty cart scenario
+    if (Object.keys(cart).length === 0) {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.textContent = "Your cart is empty.";
+        window.loaction.href="/pages/stock.php";
+        listItemsContainer.appendChild(emptyMessage);
+    }
 });
+
 </script>

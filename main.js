@@ -125,9 +125,9 @@ function closeCart() {
 }
 
 // Add to Cart Functionality
-function addToCart(productID, productName, productPrice, maxQuantity) {
+function addToCart(productID, productName, productPrice, maxQuantity, userID) {
     if (!cart[productID]) {
-        cart[productID] = { name: productName, price: productPrice, quantity: 1, maxQuantity: maxQuantity };
+        cart[productID] = { name: productName, price: productPrice, quantity: 1, maxQuantity: maxQuantity, sellerUID: userID };
     } else if (cart[productID].quantity < maxQuantity) {
         cart[productID].quantity++;
     }
@@ -183,7 +183,7 @@ function placeOrder() {
         alert('Your cart is empty!');
         return;
     }
-    window.location.href = "/pages/checkout.php";
+    window.location.href = "/pages/order.php";
 
     saveCart();
     renderCart();
