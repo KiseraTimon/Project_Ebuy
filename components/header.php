@@ -19,8 +19,8 @@ class header
         <ul class="nav__links" id="nav-links">
           <li><a href="/pages/about.php">About</a></li>
           <li><a href="/pages/stock.php">Explore</a></li>
-          <li><a href="/pages/sell.php">Import</a></li>
-          <li><a href="/pages/about.php">Support</a></li>
+          <li><a href="/pages/stock.php?availability=import">Import</a></li>
+          <li><a href="/pages/about.php#services">Support</a></li>
           <div class="icon-cart" onclick="openCart()">
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"/>
@@ -106,11 +106,24 @@ class header
                   <span>></span>
                 </a>
                 <?php
-                if(isset($_SESSION['userType']) && $_SESSION['userType'] == 'admin')
+                if(isset($_SESSION['accountType']) && $_SESSION['accountType'] == 'admin')
                 {
                   ?>
                   <hr>
                       <p style="font-size: 13px; text-align: center; margin: auto;">You have administrator priviledges</p>
+                  <?php
+                }
+                else if(isset($_SESSION['accountType']) && $_SESSION['accountType'] == 'seller')
+                {
+                  ?>
+                  <hr>
+                      <p style="font-size: 13px; text-align: center; margin: auto;">You have enterprise priviledges</p>
+                  <?php
+                }
+                else
+                {
+                  ?>
+                  <!--Blank-->
                   <?php
                 }
                 ?>
