@@ -30,12 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     //Mailer Sessions
+    $_SESSION['buyerUID'] = $buyerUID;
     $_SESSION['buyerFname'] = $fname;
     $_SESSION['buyerLname'] = $lname;
     $_SESSION['buyerCity'] = $city;
     $_SESSION['buyerAddress'] = $address;
     $_SESSION['buyerEmail'] = $email;
     $_SESSION['buyerPhone'] = $phone;
+    $_SESSION['totalPrice'] = $totalPrice;
 
     $stmt->bind_param('isssssisssssss', $buyerUID, $fname, $lname, $email, $city, $address, $phone, $totalPrice, $itemNames, $itemQuantities, $itemPrices, $itemTotalPrices, $sellerUIDs, $status);
 

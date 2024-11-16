@@ -1,0 +1,26 @@
+.ver-body
+{
+    background-color: #f1f1f1;
+    height: 160px;
+    padding: 10px;
+    max-width: 700px;
+    margin: 0 auto;
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+
+.form-data
+{
+    width: 100%;
+    margin: 10px auto;
+}
+
+.form-row
+{
+    margin: 10px auto;
+}
+
+button
+{
+    width: 100%;
+}
