@@ -29,13 +29,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $conn->prepare("INSERT INTO orders (buyerUID, fname, lname, email, city, address, phone, totalPrice, itemNames, itemQuantities, itemPrices, itemTotalPrices, sellerUID, status)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
+    //Mailer Sessions
+    $_SESSION['buyerFname'] = $fname;
+    $_SESSION['buyerLname'] = $lname;
+    $_SESSION['buyerCity'] = $city;
+    $_SESSION['buyerAddress'] = $address;
+    $_SESSION['buyerEmail'] = $email;
+    $_SESSION['buyerPhone'] = $phone;
+
     $stmt->bind_param('isssssisssssss', $buyerUID, $fname, $lname, $email, $city, $address, $phone, $totalPrice, $itemNames, $itemQuantities, $itemPrices, $itemTotalPrices, $sellerUIDs, $status);
 
     if ($stmt->execute()) {
         echo '<script>
-            alert("Your order has been placed successfully! You will receive a prompt shortly to complete payment");
+            alert("Your order has been placed successfully! You will receive an email and a prompt shortly to verify and complete payment");
             localStorage.clear();
-            window.location.href = "/pages/stock.php";
+            window.location.href = "/PHPMailer/mail.php";
         </script>';
     } else {
         echo '<script>
