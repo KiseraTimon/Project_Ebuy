@@ -28,15 +28,13 @@ create Table Products
     
 );
 
+-- DROP Table Transactions;
 create Table Transactions
 (
 	transactionID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     userID INT NOT NULL,
-    productID INT NOT NULL,
-    purchaseDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-    quantity INT NOT NULL,
-    FOREIGN KEY (userID) REFERENCES users(userID) ON DELETE CASCADE,
-    FOREIGN KEY (productID) REFERENCES Products(productID) ON DELETE CASCADE
+    code VARCHAR(20) NOT NULL,
+    purchaseDate DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE testimonials
