@@ -11,7 +11,7 @@ class aboutpage
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>About | Car Depot</title>
+                <title>About | Ebuy</title>
                 <!--External CSSs-->
                 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
                 rel="stylesheet"
@@ -36,28 +36,29 @@ class aboutpage
                 <div class="context">
                     <!--Introduction-->
                     <div id="intro" class="intro">
-                        <h1>We are Car Depot</h1>
-                        <p>Car Depot is a car dealership company that has been in the business for over 20 years. We have a wide range of cars that cater to all your needs. We have a team of experts who will help you find the perfect car for you. We also provide car servicing and maintenance services. Our goal is to provide our customers with the best car buying experience
+                        <h1>We are Ebuy</h1>
+                        <p>
+                            Ebuy is an e-commerce platform that has been in business for over 5 years. We have  wide range of products to cater for all your shopping needs. We have a team of experts who will help you find the perfect product for you. Our goal is to provide our customers with the best shopping experience.
                         </p>
-                        <p><button onclick="window.location.href='/pages/signup.php'">Join Us</button></p>
+                        <p><button onclick="window.location.href='/pages/stock.php'">Explore</button></p>
                     </div>
             
                     <!--Numbers-->
                     <div id="numbers" class="numbers">
                         <div class="box">
                             <i class="ri-car-washing-line"></i>
-                            <h2>1000+</h2>
-                            <p>Vehicles in Stock</p>
+                            <h2>1,000+</h2>
+                            <p>Registered Businesses</p>
                         </div>
                         <div class="box">
                             <i class="ri-group-3-line"></i>
-                            <h2>500+</h2>
-                            <p>Satisfied Customers</p>
+                            <h2>500,000+</h2>
+                            <p>Satisfied Shoppers</p>
                         </div>
                         <div class="box">
                             <i class="ri-map-line"></i>
-                            <h2>10+</h2>
-                            <p>Dealer locations</p>
+                            <h2>40+</h2>
+                            <p>Ebuy outlets</p>
                         </div>
                     </div>
             
@@ -69,9 +70,8 @@ class aboutpage
                             </div>
                             <div class="teamnote">
                                 <p>
-                                    Our team of experts is here to help you find the perfect car for you. We have a team of experienced professionals who will guide you through the car buying process. We have a wide range of cars that cater to all your needs. Our goal is to provide our customers with the best car buying experience.
+                                    Our team is made up of passionate individuals who are dedicated to providing our customers with the best shopping experience. We have a team of experts who will help you find the perfect product for you. We have a wide range of products that cater to all your needs. We also provide customer support services to assist you with any queries you may have.
                                 </p>
-                                <p><button>Our Team</button></p>
                             </div>
                         </div>
                     </div>
@@ -83,23 +83,29 @@ class aboutpage
                             <div class="uniquebox">
                                 <div class="box">
                                     <i class="ri-shield-check-line"></i>
-                                    <h2>Quality Cars</h2>
-                                    <p>We have a wide range of cars that cater to all your needs. We have a team of experts who will help you find the perfect car for you.</p>
+                                    <h2>Quality Products</h2>
+                                    <p>
+                                        We offer quality products that are sourced from trusted suppliers. We have a team of experts who will help you find the perfect product for you.
+                                    </p>
                                 </div>
                                 <div class="box">
                                     <i class="ri-money-dollar-circle-line"></i>
                                     <h2>Best Prices</h2>
-                                    <p>We offer the best prices on all our cars. We have a team of experts who will help you find the perfect car for you.</p>
+                                    <p>
+                                        We offer the best prices on all our products. We have a team of experts who will help you find the perfect product for you.
+                                    </p>
                                 </div>
                                 <div class="box">
-                                    <i class="ri-tools-line"></i>
-                                    <h2>Car Servicing</h2>
-                                    <p>We provide car servicing and maintenance services. We have a team of experts who will help you find the perfect car for you.</p>
+                                    <i class="ri-truck-line"></i>
+                                    <h2>Free Delivery</h2>
+                                    <p>
+                                        Cut on delivery costs with our free delivery services. Our businesses ensure you get everything you need right from your point of comfort
+                                    </p>
                                 </div>
                             </div>
                             <div class="description">
                                 <p>
-                                    Our goal is to provide our customers with the best car buying experience. We have a team of experts who will help you find the perfect car for you. We have a wide range of cars that cater to all your needs. We also provide car servicing and maintenance services.
+                                    Ebuy ensures a seamless shopping experience for all customers. We offer convenient payment options, diverse and available products, fast and free delivery as well as dedicated customer support services, ensuring you get the best shopping experience.
                                 </p>
                             </div>
                         </div>
@@ -109,15 +115,14 @@ class aboutpage
                     <div id="story" class="story">
                         <div class="content">
                             <div class="contentimage">
-                                <img src="/pageclasses/assets/images/about/story.png" alt="story">
+                                <img src="/pageclasses/assets/images/about/experience.jpg" alt="story">
                             </div>
                             <h1>Our Story</h1>
                             <p>
-                                Car Depot is a car dealership company that has been in the business for over 20 years. We have a wide range of cars that cater to all your needs. We have a team of experts who will help you find the perfect car for you. We also provide car servicing and maintenance services. Our goal is to provide our customers with the best car buying experience.
+                                Ebuy was founded in 2019 with the aim of providing customers with a convenient and reliable shopping experience. We have a team of experts who will help you find the perfect product for you. We have a wide range of products that cater to all your needs. We also provide customer support services to assist you with any queries you may have.
                                 <br>
-                                As the car dealership industry has evolved, we have adapted to the changing times. We have embraced new technologies and trends to provide our customers with the best car buying experience. We have a team of experts who will help you find the perfect car for you. We have a wide range of cars that cater to all your needs. We also provide car servicing and maintenance services.
                                 <br>
-                                Our story begins from 1999 when we started our journey in the car dealership industry. We have come a long way since then and have established ourselves as a trusted name in the industry. We have a team of experts who will help you find the perfect car for you. We have a wide range of cars that cater to all your needs. We also provide car servicing and maintenance services.
+                                Our goal is to provide our customers with the best shopping experience. We offer quality products at the best prices. We also provide free delivery services to ensure that you get your products on time. We are committed to providing our customers with the best shopping experience.
                             </p>
                         </div>
                     </div>
@@ -125,22 +130,28 @@ class aboutpage
                     <!--Services-->
                     <div id="services" class="services">
                         <div class="content">
-                            <h1>Our Services</h1>
+                            <h1>Business Services</h1>
                             <div class="servicebox">
                                 <div class="box">
-                                    <i class="ri-car-washing-fill"></i>
-                                    <h2>Car Wash</h2>
-                                    <p>We offer car wash services to keep your car clean and shiny. We have a team of experts who will help you find the perfect car for you.</p>
+                                    <i class="ri-bank-fill"></i>
+                                    <h2>Business Funding</h2>
+                                    <p>
+                                        We offer business funding services to help you grow your business. We have a team of experts who will help you find the perfect product for you.
+                                    </p>
                                 </div>
                                 <div class="box">
-                                    <i class="ri-tools-line"></i>
-                                    <h2>Car Servicing</h2>
-                                    <p>We provide car servicing and maintenance services. We have a team of experts who will help you find the perfect car for you.</p>
+                                    <i class="ri-flag-line"></i>
+                                    <h2>Advertising</h2>
+                                    <p>
+                                        We offer advertising services to help you promote your business. We have a team of experts who will help you find the perfect product for you.
+                                    </p>
                                 </div>
                                 <div class="box">
-                                    <i class="ri-car-washing-line"></i>
-                                    <h2>Car Detailing</h2>
-                                    <p>We offer car detailing services to keep your car looking brand new. We have a team of experts who will help you find the perfect car for you.</p>
+                                    <i class="ri-pie-chart-fill"></i>
+                                    <h2>Analytics</h2>
+                                    <p>
+                                        We offer analytics services to help you track your business performance. We have a team of experts who will help you find the perfect product for you.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -149,11 +160,12 @@ class aboutpage
                     <!--Work with us-->
                     <div id="work" class="work">
                         <div class="content">
-                            <h1>Work with Us</h1>
+                            <h1>Become a member</h1>
                             <p>
-                                We are always looking for talented individuals to join our team. If you are passionate about cars and have a desire to work in the car dealership industry, then we want to hear from you. We offer competitive salaries and benefits to all our employees. We have a team of experts who will help you find the perfect car for you. We have a wide range of cars that cater to all your needs. We also provide car servicing and maintenance services.
+                                You could be the youngest E-buyer today.
+                                Join our platform today and experience what convenience, speed and efficiency in shopping is all about.
                             </p>
-                            <p><button>Join Us</button></p>
+                            <p><button onclick="window.location.href='/pages/signup.php'">Sign Up</button></p>
                         </div>
                     </div>
 

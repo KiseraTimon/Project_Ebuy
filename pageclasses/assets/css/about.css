@@ -187,6 +187,7 @@ body
 /*Why us*/
 .unique
 {
+    margin-top: 50px;
     padding: 10px;
 }
 
@@ -248,16 +249,19 @@ body
 /*Story*/
 .story
 {
+    margin-top: 50px;
     padding: 10px;
-    /* background-color: var(--color-2); */
+    background-color: var(--extra-light);
 }
 
 .contentimage
 {
     position: relative;
-    max-width: 500px;
-    max-height: 500px;
+    max-width: 700px;
+    height: 400px;
     margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .contentimage img
@@ -285,6 +289,7 @@ body
 /*Services*/
 .services
 {
+    margin-top: 50px;
     padding: 10px;
 }
 
