@@ -109,7 +109,7 @@ class auth
                         <!--Submission-->
                         <button type="submit">Log In</button>
                     </form>
-                    <p>Don't have an account? <a href="signup.html">Sign Up here</a></p>
+                    <p>Don't have an account? <a href="signup.php">Sign Up here</a></p>
                 </div>
             </div>
         <?php
