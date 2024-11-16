@@ -10,10 +10,10 @@ class footer
                 <div class="footer__col">
                     <h4>Company</h4>
                     <ul class="footer__links">
-                    <li><a href="/pages/about.php#team">Team</a></li>
-                    <li><a href="/pages/stock.php">Inventory</a></li>
+                    <li><a href="/pages/signup.php">Join Us</a></li>
+                    <li><a href="/pages/stock.php">Explore</a></li>
                     <li><a href="/pages/about.php#testimonials">Testimonials</a></li>
-                    <li><a href="/pages/about.php#awards">Awards</a></li>
+                    <li><a href="/pages/about.php#awards">Partners</a></li>
                     </ul>
                 </div>
                 <div class="footer__col">
@@ -21,8 +21,7 @@ class footer
                     <ul class="footer__links">
                     <li><a href="/pages/about.php#services">Services</a></li>
                     <li><a href="/pages/about.php#story">Our Story</a></li>
-                    <li><a href="/pages/about.php#partners">Partners</a></li>
-                    <li><a href="/pages/about.php#branches">Branches</a></li>
+                    <li><a href="/pages/about.php#unique">Why Ebuy</a></li>
                     </ul>
                 </div>
                 <div class="footer__col">
