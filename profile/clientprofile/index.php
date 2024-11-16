@@ -98,7 +98,7 @@ else
             <br>
             <br>
             <button onclick="window.location.href='/index.php'">Home</button>
-            <button onclick="window.location.href='/forms/logout.php'">Logout</button>
+            <button onclick="window.location.href='/formclasses/assets/php/logout.php'">Logout</button>
             <button style="background-color: red" onclick="window.location.href='#'">Delete</button>
           </div>
         </div>
