@@ -28,8 +28,8 @@ create Table Products
     
 );
 
--- DROP Table Transactions;
-create Table Transactions
+-- DROP Table transactions;
+create Table transactions
 (
 	transactionID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     userID INT NOT NULL,
