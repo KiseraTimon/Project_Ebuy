@@ -20,12 +20,12 @@ Complete
 -- Search algorithm
 -- Buyer's UI
 -- Product listings
+-- Seller's UI
+-- Cart Backend
+-- Admin UI
 
 Work in progress
 
--- Admin UI
--- Seller's UI
--- Cart Backend
 -- Account update
 
 
@@ -53,15 +53,3 @@ Pending
 
 
 -- Alternative registration for business owners
-
--- Fix checkout.php errors:
-
-Warning: Undefined array key "sellerUID" in C:\Users\timon\OneDrive\Desktop\MY STRATHMORE LIBRARY\Year 2\Semester 2\Software Engineering\Projects\EbuyFinal\pageclasses\assets\php\checkout.php on line 22
-
-Warning: Array to string conversion in C:\Users\timon\OneDrive\Desktop\MY STRATHMORE LIBRARY\Year 2\Semester 2\Software Engineering\Projects\EbuyFinal\pageclasses\assets\php\checkout.php on line 30
-
-Warning: Array to string conversion in C:\Users\timon\OneDrive\Desktop\MY STRATHMORE LIBRARY\Year 2\Semester 2\Software Engineering\Projects\EbuyFinal\pageclasses\assets\php\checkout.php on line 30
-
-Warning: Array to string conversion in C:\Users\timon\OneDrive\Desktop\MY STRATHMORE LIBRARY\Year 2\Semester 2\Software Engineering\Projects\EbuyFinal\pageclasses\assets\php\checkout.php on line 30
-
-Fatal error: Uncaught mysqli_sql_exception: Column 'totalPrice' cannot be null in C:\Users\timon\OneDrive\Desktop\MY STRATHMORE LIBRARY\Year 2\Semester 2\Software Engineering\Projects\EbuyFinal\pageclasses\assets\php\checkout.php:30 Stack trace: #0 C:\Users\timon\OneDrive\Desktop\MY STRATHMORE LIBRARY\Year 2\Semester 2\Software Engineering\Projects\EbuyFinal\pageclasses\assets\php\checkout.php(30): mysqli_stmt->execute() #1 {main} thrown in C:\Users\timon\OneDrive\Desktop\MY STRATHMORE LIBRARY\Year 2\Semester 2\Software Engineering\Projects\EbuyFinal\pageclasses\assets\php\checkout.php on line 30
