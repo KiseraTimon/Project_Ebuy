@@ -34,6 +34,7 @@ create Table transactions
 	transactionID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     userID INT NOT NULL,
     code VARCHAR(20) NOT NULL,
+    totalPrice INT NOT NULL,
     purchaseDate DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
