@@ -50,7 +50,7 @@ else
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!-- My CSS -->
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/profile/adminprofile/assets/css/style.css">
 	<link rel="stylesheet" href="/style.css">
 	<link rel="stylesheet" href="/defaults.css">
 
@@ -618,6 +618,6 @@ else
 	<!--Content-->
 	
 
-	<script src="script.js"></script>
+	<script src="/profile/adminprofile/assets/js/script.js"></script>
 </body>
 </html>
