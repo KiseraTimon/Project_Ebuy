@@ -544,7 +544,7 @@ else
 				<h1>Account Information</h1>
 				</div>
 				<div class="acctext">
-					<form action="../updator.php" method="POST" enctype="multipart/form-data">
+					<form action="/formclasses/assets/php/updator.php" method="POST" enctype="multipart/form-data">
 					<!--fname-->
 					<label for="fname">First Name</label>
 					<input type="text" name="fname" value="<?php echo $fname?>"><br>
