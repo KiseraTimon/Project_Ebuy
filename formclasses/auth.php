@@ -114,5 +114,61 @@ class auth
             </div>
         <?php
     }
+
+    function business()
+    {
+        ?>
+            <div class="container">
+                <div class="content">
+                    <h1>Register a business account</h1>
+                    <p>Please enter your details.</p>
+                    <form action="/formclasses/assets/php/business.php" method="POST">
+
+                        <!--fname-->
+                        <div class="input__group">
+                            <label for="fname">First Name</label>
+                            <input type="text" name="fname" placeholder="Enter your first name" />
+                        </div>
+
+                        <!--lname-->
+                        <div class="input__group">
+                            <label for="lname">Last Name</label>
+                            <input type="text" name="lname" placeholder="Enter your last name" />
+                        </div>
+
+                        <!--Business Name-->
+                        <div class="input__group">
+                            <label for="bname">Business Name</label>
+                            <input type="text" name="bname" placeholder="Enter your business' name" />
+                        </div>
+
+                        <!--Business Email-->
+                        <div class="input__group">
+                            <label for="bemail">E-mail</label>
+                            <input type="email" name="bemail" placeholder="Enter your business email" />
+                        </div>
+
+                        <!--Business Contact-->
+                        <div class="input__group">
+                            <label for="bcontact">Phone number</label>
+                            <input type="number" name="bcontact" placeholder="Enter your business phone number" />
+                        </div>
+
+                        <!--Headquarters-->
+                        <div class="input__group">
+                            <label for="hq">Headquarters</label>
+                            <input type="text" name="hq" placeholder="Enter your HQ location" />
+                        </div>
+
+                        <!--Submission-->
+                        <button type="submit">Apply</button>
+                    </form>
+                    <p>You will access your account using your normal password details</p>
+                </div>
+            </div>
+        <?php
+    }
+
+
 }
 ?>
