@@ -561,8 +561,12 @@ else
 					<label for="email">Email</label>
 					<input type="email" name="email" value="<?php echo $email?>"><br>
 
-					<label for="password">Current Password</label>
-					<input type="password" name="currentpassword" value="<?php echo $password?>" readonly><br>
+					<!--contact-->
+					<label for="contact">Contact</label>
+					<input type="text" name="contact" value="<?php echo $contact?>"><br>
+
+					<!--Current password-->
+					<input type="hidden" name="currentpassword" value="<?php echo $password?>" readonly>
 
 					<!--New password-->
 					<label for="password">New Password</label>

@@ -3,13 +3,13 @@
 session_start();
 
 // Include the database connection
-require '../components/database.php';
+require ('../../../components/database.php');
 
 // Check if the user is logged in
 if (!isset($_SESSION['userID'])) {
     echo '<script>
             alert("Please login to access this page.");
-            window.location.href = "../pages/login.php";
+            window.location.href = "/pages/login.php";
         </script>';
     exit;
 }
@@ -26,13 +26,13 @@ if (isset($_POST['update'])) {
 
     // Get form inputs and only add non-empty fields to the update query
     if (!empty($_POST['fname'])) {
-        $updateFields[] = "fname = ?";
+        $updateFields[] = "fName = ?";
         $bindParams[] = $_POST['fname'];
         $bindTypes .= 's';
     }
 
     if (!empty($_POST['lname'])) {
-        $updateFields[] = "lname = ?";
+        $updateFields[] = "lName = ?";
         $bindParams[] = $_POST['lname'];
         $bindTypes .= 's';
     }
@@ -47,6 +47,12 @@ if (isset($_POST['update'])) {
         $updateFields[] = "email = ?";
         $bindParams[] = $_POST['email'];
         $bindTypes .= 's';
+    }
+
+    if (!empty($_POST['contact'])) {
+        $updateFields[] = "contactphone = ?";
+        $bindParams[] = $_POST['contact'];
+        $bindTypes .= 'i';
     }
 
     // Handle password update if a new password is provided and confirmed
@@ -105,7 +111,7 @@ if (isset($_POST['update'])) {
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         $profilepic = $row['profilePic'];
-        
+
     }
     else if (isset($_FILES['profilepic']) && $_FILES['profilepic']['error'] > 0)
     {
