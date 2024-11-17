@@ -91,9 +91,9 @@ if (isset($_POST['update'])) {
 
     // No errors, process the uploaded image as a BLOB
     $profilepic = file_get_contents($_FILES['profilepic']['tmp_name']);
-    $updateFields[] = "profilepic = ?";  // Add profile picture to fields
-    $bindParams[] = $profilepic;  // Bind the BLOB image data
-    $bindTypes .= 'b';  // Add 'b' for BLOB data
+    $updateFields[] = "profilepic = ?";
+    $bindParams[] = $profilepic;
+    $bindTypes .= 'b';
     }
     else if (!isset($_FILES['profilepic']) || $_FILES['profilepic']['error'] == 4)
     {
@@ -104,12 +104,8 @@ if (isset($_POST['update'])) {
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
-        $profilepic = $row['profilepic'];
-
-        // BLOB conversion
-        // $profilepic = base64_encode($profilepic);
-        // $profilepic = 'data:image/jpeg;base64,'.$profilepic;
-        // $stmt->close();
+        $profilepic = $row['profilePic'];
+        
     }
     else if (isset($_FILES['profilepic']) && $_FILES['profilepic']['error'] > 0)
     {
