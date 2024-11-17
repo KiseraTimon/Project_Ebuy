@@ -62,7 +62,7 @@ if (isset($_POST['update'])) {
 
         if ($newPassword === $confirmPassword) {
             $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-            $updateFields[] = "password = ?";
+            $updateFields[] = "passw = ?";
             $bindParams[] = $hashedPassword;
             $bindTypes .= 's';
         } else {
@@ -97,7 +97,7 @@ if (isset($_POST['update'])) {
 
     // No errors, process the uploaded image as a BLOB
     $profilepic = file_get_contents($_FILES['profilepic']['tmp_name']);
-    $updateFields[] = "profilepic = ?";
+    $updateFields[] = "profilePic = ?";
     $bindParams[] = $profilepic;
     $bindTypes .= 'b';
     }

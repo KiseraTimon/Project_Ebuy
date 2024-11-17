@@ -581,7 +581,7 @@ else
 					<input type="file" name="profilepic"><br>
 
 					<!--Submit-->
-					<input type="submit" value="update">
+					<input type="submit" name="update" value="update">
 					</form>
 				</div>
 			</div>
