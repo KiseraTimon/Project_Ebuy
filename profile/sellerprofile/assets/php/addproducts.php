@@ -2,7 +2,6 @@
 // Database connection
 session_start();
 require ('../../../../components/database.php');
-require_once('../../../../loader.php');
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -20,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle the image uploads
     $images = $_FILES['images'];
     $uploadedImages = [];
-    $allowedTypes = ['image/jpeg', 'image/png'];
-    $maxFileSize = 2 * 1024 * 1024; // 2MB
+    $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/pjpeg'];
+    $maxFileSize = 10 * 1024 * 1024; // 10MB
     $uploadDir = '../../../../inventory/'; // Ensure this directory exists and is writable
 
     // Process each uploaded image
@@ -41,18 +40,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 alert("Error uploading file: $imageName");
                 window.history.back();
                 </script>';
+                exit;
                 }
             } else {
                 echo '<script>
                 alert("Invalid file type");
                 window.history.back();
                 </script>';
+                exit;
             }
         } else {
             echo '<script>
             alert("Error uploading file: $imageName");
             window.history.back();
             </script>';
+            exit;
         }
     }
 
