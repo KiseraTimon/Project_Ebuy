@@ -1,192 +1,170 @@
 <div class="superpanel">
     <?php
+    // Include database connection
+    require('database.php');
 
-    //Search params
-    // Retrieve search parameters from GET
-    $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-    $category = isset($_GET['category']) ? $_GET['category'] : '';
-    $subcategory = isset($_GET['subcategory']) ? $_GET['subcategory'] : '';
-    $minPrice = isset($_GET['minprice']) ? $_GET['minprice'] : '';
-    $maxPrice = isset($_GET['maxprice']) ? $_GET['maxprice'] : '';
-    $condition = isset($_GET['status']) ? $_GET['status'] : '';
-    $availability = isset($_GET['availability']) ? $_GET['availability'] : '';
-    $tags = isset($_GET['tags']) ? $_GET['tags'] : '';
-    $rating = isset($_GET['rating']) ? $_GET['rating'] : '';
+    // Search parameters with defaults
+    $searchParams = [
+        'keyword' => $_GET['keyword'] ?? '',
+        'category' => $_GET['category'] ?? '',
+        'subcategory' => $_GET['subcategory'] ?? '',
+        'minprice' => $_GET['minprice'] ?? '',
+        'maxprice' => $_GET['maxprice'] ?? '',
+        'status' => $_GET['status'] ?? '',
+        'availability' => $_GET['availability'] ?? '',
+        'tags' => $_GET['tags'] ?? '',
+        'rating' => $_GET['rating'] ?? ''
+    ];
 
-
-    // Check if any search parameters are set
-    $isSearch = false;
-
-    // Start building the base query
+    // Base query and filters
     $query = "SELECT * FROM products WHERE 1=1";
+    $params = [];
+    $types = '';
 
-        // Filter by keyword
-        if (!empty($keyword)) {
-            $query .= " AND (productName LIKE ? OR productDesc LIKE ?)";
-            $keywordParam = '%' . $keyword . '%';
-            $params[] = $keywordParam;
-            $params[] = $keywordParam;
-            $types .= 'ss';
-        }
-    
-        // Filter by category and subcategory
-        if (!empty($category)) {
-            $query .= " AND subcatID IN (SELECT subcatID FROM subcategories WHERE categoryID = ?)";
-            $params[] = $category;
-            $types .= 'i';
-        }
-        if (!empty($subcategory)) {
-            $query .= " AND subcatID = ?";
-            $params[] = $subcategory;
-            $types .= 'i';
-        }
-    
-        // Filter by price range
-        if (!empty($minPrice)) {
-            $query .= " AND price >= ?";
-            $params[] = (float)$minPrice;
-            $types .= 'd';
-        }
-        if (!empty($maxPrice)) {
-            $query .= " AND price <= ?";
-            $params[] = (float)$maxPrice;
-            $types .= 'd';
-        }
-    
-        // Filter by condition
-        if (!empty($condition)) {
-            $query .= " AND condition = ?";
-            $params[] = $condition;
-            $types .= 's';
-        }
-    
-        // Filter by availability (mapped to quantity)
-        if (!empty($availability)) {
-            if ($availability == 'In stock') {
-                $query .= " AND quantity > 0";
-            } elseif ($availability == 'Out of stock') {
-                $query .= " AND quantity = 0";
+    foreach ($searchParams as $key => $value) {
+        if (!empty($value)) {
+            $isSearch = true;
+            switch ($key) {
+                case 'keyword':
+                    $query .= " AND (productName LIKE ? OR productDesc LIKE ?)";
+                    $params[] = "%$value%";
+                    $params[] = "%$value%";
+                    $types .= 'ss';
+                    break;
+                case 'category':
+                    $query .= " AND subcatID IN (SELECT subcatID FROM subcategories WHERE categoryID = ?)";
+                    $params[] = (int)$value;
+                    $types .= 'i';
+                    break;
+                case 'subcategory':
+                    $query .= " AND subcatID = ?";
+                    $params[] = (int)$value;
+                    $types .= 'i';
+                    break;
+                case 'minprice':
+                    $query .= " AND price >= ?";
+                    $params[] = (float)$value;
+                    $types .= 'd';
+                    break;
+                case 'maxprice':
+                    $query .= " AND price <= ?";
+                    $params[] = (float)$value;
+                    $types .= 'd';
+                    break;
+                case 'status':
+                    $query .= " AND condition = ?";
+                    $params[] = $value;
+                    $types .= 's';
+                    break;
+                case 'availability':
+                    $query .= $value == 'In stock' ? " AND quantity > 0" : " AND quantity = 0";
+                    break;
+                case 'tags':
+                    $query .= " AND tags LIKE ?";
+                    $params[] = "%$value%";
+                    $types .= 's';
+                    break;
+                case 'rating':
+                    $query .= " AND rating >= ?";
+                    $params[] = (int)$value;
+                    $types .= 'i';
+                    break;
             }
         }
-    
-        // Filter by tags
-        if (!empty($tags)) {
-            $query .= " AND tags LIKE ?";
-            $params[] = '%' . $tags . '%';
-            $types .= 's';
-        }
-    
-        // Filter by consumer rating
-        if (!empty($rating)) {
-            $query .= " AND rating >= ?";
-            $params[] = (int)$rating;
-            $types .= 'i';
-        }
-
-    // Execute the search query if parameters are set
-    if ($isSearch) {
-        $results = $conn->query($query);
-    } else {
-        // Otherwise, load default vehicles with pagination
-        $cardsPerPage = 32;
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $offset = ($page - 1) * $cardsPerPage;
-
-        // Default query for all vehicles with pagination
-        $stmt = $conn->prepare("SELECT * FROM products LIMIT ? OFFSET ?");
-        $stmt->bind_param("ii", $cardsPerPage, $offset);
-        $stmt->execute();
-        $results = $stmt->get_result();
     }
 
-    // Display the results
-    $cardId = 1;
-    while ($row = $results->fetch_assoc()) {
-        // Fetch and display vehicle details (as in your current code)
-        $productID = $row['productID'];
-        $productName = $row['productName'];
-        $category = $row['category'];
-        $subcategory = $row['subcategory'];
-        $productPrice = $row['price'];
-        $images = $row['images'];
-        $availability = $row['availability'];
+    // Pagination logic
+    $cardsPerPage = 32;
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $offset = ($page - 1) * $cardsPerPage;
 
-        //Category
-        $catquery = "SELECT category FROM categories WHERE categoryID = ?";
-        $stmt = $conn->prepare($catquery);
-        $stmt->bind_param("i", $category);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $category = $result->fetch_assoc()['category'];
+    $query .= " LIMIT ? OFFSET ?";
+    $params[] = $cardsPerPage;
+    $params[] = $offset;
+    $types .= 'ii';
 
-        // Checking availability value
-        $statusClass = '';
-        switch ($availability) {
-            case 'Available': $statusClass = 'available'; break;
-            case 'Sold': $statusClass = 'sold'; break;
-            case 'Reserved': $statusClass = 'reserved'; break;
-            case 'Import': $statusClass = 'import'; break;
-            case 'Showcase': $statusClass = 'showcase'; break;
-            default: $statusClass = 'available'; break;
-        }
-
-        // Image JSON to PHP array
-        $images = json_decode($images, true);
-
-        // Number formatting
-        $price = number_format($productPrice);
-
-        // Display the card
-        ?>
-        <div class="supercard">
-            <div class="status">
-                <h2 class="sm-title <?php echo $statusClass; ?>"><?php echo $availability; ?></h2>
-            </div>
-            <div class="cardimage" id="card-<?php echo $cardId; ?>">
-                <!--Loading animation-->
-                <!-- <canvas class="loading-canvas"></canvas> -->
-                <?php
-                foreach ($images as $key => $image) {
-                    $display = ($key == 0) ? 'block' : 'none';
-                    echo '<img class="slides" src="'.$image.'" alt="'.$productName.'" style="display:'.$display.'">';
-                }
-                echo '<div class="navbuttons">';
-                echo '<button class="navbutton" onclick="plusSlides(-1, ' . $cardId . ')"><i class="ri-arrow-left-s-line"></i></button>';
-                echo '<button class="navbutton" onclick="plusSlides(1, ' . $cardId . ')"><i class="ri-arrow-right-s-line"></i></button>';
-                echo '</div>';
-                ?>
-            </div>
-            <div class="cardcontent" ondblclick="viewer(<?php echo $productID; ?>);">
-                <p><?php echo $productName; ?></p>
-                <span><?php echo $category.' | '.$subcategory; ?></span>
-                <p><?php echo $price; ?><sup>KES</sup></p>
-
-                <!--Add to cart button-->
-                <div class="add-cart">
-                    <button onclick="addToCart('<?php echo $productID; ?>', '<?php echo addslashes($productName); ?>', <?php echo $productPrice; ?>, <?php echo $row['quantity']; ?>, <?php echo $row['userID'];?>)">
-                        <i class="fas fa-shopping-cart"></i>
-                    </button>
-                </div>
-
-            </div>
-        </div>
-        <?php
-        $cardId++;
-    }
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $results = $stmt->get_result();
 
     if ($results->num_rows === 0) {
-        echo 'Ooops! Nothing to show here';
+        echo '<p>Oops! No results found.</p>';
+    } else {
+        $cardId = 1;
+        while ($row = $results->fetch_assoc()) {
+            // Fetch and display vehicle details (as in your current code)
+            $productID = $row['productID'];
+            $productName = $row['productName'];
+            $category = $row['category'];
+            $subcategory = $row['subcategory'];
+            $productPrice = $row['price'];
+            $images = $row['images'];
+            $availability = $row['availability'];
+
+            //Category
+            $catquery = "SELECT category FROM categories WHERE categoryID = ?";
+            $stmt = $conn->prepare($catquery);
+            $stmt->bind_param("i", $category);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $category = $result->fetch_assoc()['category'];
+
+            // Checking availability value
+            $statusClass = '';
+            switch ($availability) {
+                case 'Available': $statusClass = 'available'; break;
+                case 'Sold': $statusClass = 'sold'; break;
+                case 'Reserved': $statusClass = 'reserved'; break;
+                case 'Import': $statusClass = 'import'; break;
+                case 'Showcase': $statusClass = 'showcase'; break;
+                default: $statusClass = 'available'; break;
+            }
+
+            // Image JSON to PHP array
+            $images = json_decode($images, true);
+
+            // Number formatting
+            $price = number_format($productPrice);
+
+            // Display the card
+            ?>
+            <div class="supercard">
+                <div class="status">
+                    <h2 class="sm-title <?php echo $statusClass; ?>"><?php echo $availability; ?></h2>
+                </div>
+                <div class="cardimage" id="card-<?php echo $cardId; ?>">
+                    <!--Loading animation-->
+                    <!-- <canvas class="loading-canvas"></canvas> -->
+                    <?php
+                    foreach ($images as $key => $image) {
+                        $display = ($key == 0) ? 'block' : 'none';
+                        echo '<img class="slides" src="'.$image.'" alt="'.$productName.'" style="display:'.$display.'">';
+                    }
+                    echo '<div class="navbuttons">';
+                    echo '<button class="navbutton" onclick="plusSlides(-1, ' . $cardId . ')"><i class="ri-arrow-left-s-line"></i></button>';
+                    echo '<button class="navbutton" onclick="plusSlides(1, ' . $cardId . ')"><i class="ri-arrow-right-s-line"></i></button>';
+                    echo '</div>';
+                    ?>
+                </div>
+                <div class="cardcontent" ondblclick="viewer(<?php echo $productID; ?>);">
+                    <p><?php echo $productName; ?></p>
+                    <span><?php echo $category.' | '.$subcategory; ?></span>
+                    <p><?php echo $price; ?><sup>KES</sup></p>
+
+                    <!--Add to cart button-->
+                    <div class="add-cart">
+                        <button onclick="addToCart('<?php echo $productID; ?>', '<?php echo addslashes($productName); ?>', <?php echo $productPrice; ?>, <?php echo $row['quantity']; ?>, <?php echo $row['userID'];?>)">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <?php
+            $cardId++;
+        }
     }
-
-
-    //Pagination logic
-    $cardsPerPage = 32;
-
-    // Get the current page or set default to 1
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-
-    // Calculate the offset for the query
-    $offset = ($page - 1) * $cardsPerPage;
 
     // Get the total number of vehicles to calculate the total number of pages
     $stmtTotal = $conn->prepare("SELECT COUNT(*) AS total FROM products");

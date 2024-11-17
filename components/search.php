@@ -78,11 +78,11 @@ $selectedSubcategories = [];
         </select>
 
         <select name="availability">
-          <option value="">Availability</option>
-          <option value="In stock">In stock</option>
-          <option value="Out of stock">Import order</option>
-          <option value="Pre-order">Pre-order</option>
+        <option value="Available">Available</option>
           <option value="Sold">Sold</option>
+          <option value="Reserved">Reserved</option>
+          <option value="Import">Import</option>
+          <option value="Showcase">Showcase</option>
         </select>
       </div>
 
