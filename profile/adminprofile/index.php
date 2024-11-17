@@ -366,6 +366,7 @@ else
 						<th>Subcategory</th>
 						<th>Price</th>
 						<th>Business</th>
+						<th>View</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -404,6 +405,7 @@ else
 								<td><?php echo $subcategory; ?></td>
 								<td><?php echo $price; ?><sup>KES</sup></td>
 								<td><?php echo $businessName; ?></td>
+								<td><a href="/pages/viewer.php?productID=<?php echo $productID?>">View</a></td>
 							</tr>
 							<?php
 						}

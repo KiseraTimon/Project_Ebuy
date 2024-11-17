@@ -410,69 +410,69 @@ else
 				<li><a href="#" class="active">Product listings</a></li>
 			</ul>
 
-			<?php
-			$sql = "SELECT * FROM products WHERE userID = '$userID'";
-			$result = mysqli_query($conn, $sql);
+			<div class="prodtable">
+				<table>
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Price</th>
+							<th>Fixation</th>
+							<th>Quantity</th>
+							<th>Category</th>
+							<th>Subcategory</th>
+							<th>View</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$sql = "SELECT * FROM products WHERE userID = '$userID'";
+						$result = mysqli_query($conn, $sql);
 
-			if ($result && mysqli_num_rows($result) > 0) {
-				while ($row = mysqli_fetch_assoc($result)) {
-					$productID = $row['productID'];
-					$name = $row['productName'];
-					$price = $row['price'];
-					$pricestatus = $row['pricestatus'];
-					$quantity = $row['quantity'];
-					$category = $row['category'];
-					$subcategory = $row['subcategory'];
-					$image = $row['images'];
+						if ($result && mysqli_num_rows($result) > 0) {
+							while ($row = mysqli_fetch_assoc($result)) {
+								$productID = $row['productID'];
+								$name = $row['productName'];
+								$price = $row['price'];
+								$pricestatus = $row['pricestatus'];
+								$quantity = $row['quantity'];
+								$category = $row['category'];
+								$subcategory = $row['subcategory'];
+								$image = $row['images'];
 
-					$catquery = "SELECT category FROM categories WHERE categoryID = '$category'";
-					$catresult = mysqli_query($conn, $catquery);
-					$catrow = mysqli_fetch_assoc($catresult);
-					$category = $catrow['category'];
+								$catquery = "SELECT category FROM categories WHERE categoryID = '$category'";
+								$catresult = mysqli_query($conn, $catquery);
+								$catrow = mysqli_fetch_assoc($catresult);
+								$category = $catrow['category'];
 
-					//Number formating
-					$price = number_format($price);
-					$quantity = number_format($quantity);
+								//Number formating
+								$price = number_format($price);
+								$quantity = number_format($quantity);
 
-					// BLOB conversion
-					$image = base64_encode($image);
-					$image = 'data:image/jpeg;base64,'.$image;
+								// BLOB conversion
+								$image = base64_encode($image);
+								$image = 'data:image/jpeg;base64,'.$image;
 
-					?>
-					<div class="prodtable">
-						<table>
-							<thead>
-								<tr>
-									<th>Product</th>
-									<th>Price</th>
-									<th>Fixation</th>
-									<th>Quantity</th>
-									<th>Category</th>
-									<th>Subcategory</th>
-									<th>View</th>
-									<th>Delete</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><?php echo $name?></td>
-									<td><?php echo $price?></td>
-									<td><?php echo $pricestatus?></td>
-									<td><?php echo $quantity?></td>
-									<td><?php echo $category?></td>
-									<td><?php echo $subcategory?></td>
-									<td><a href='/pages/viewer.php?productID='$productID'>View</a></td>
-									<td><a href="#">Delete</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<?php
-				}
-			} else {
-				echo "No products found.";
-			}
-			?>
+								?>
+									<tr>
+										<td><?php echo $name?></td>
+										<td><?php echo $price?></td>
+										<td><?php echo $pricestatus?></td>
+										<td><?php echo $quantity?></td>
+										<td><?php echo $category?></td>
+										<td><?php echo $subcategory?></td>
+										<td><a href="/pages/viewer.php?productID=<?php echo $productID?>">View</a></td>
+										<td><a href="#">Delete</a></td>
+									</tr>
+								<?php
+							}
+						} else {
+							echo "No products found.";
+						}
+						?>
+					</tbody>
+				</table>
+			</div>
 		</main>
 
 		<!--Orders-->
