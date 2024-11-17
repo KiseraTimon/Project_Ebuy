@@ -1,5 +1,5 @@
 <?php
-include 'dbconnection.php';
+require('/components/database.php');
 header("Content-Type: application/json");
 $stkCallbackResponse = file_get_contents('php://input');
 $logFile = "Mpesastkresponse.json";
@@ -16,8 +16,8 @@ $ResultDesc = $data->Body->stkCallback->ResultDesc;
 $Amount = $data->Body->stkCallback->CallbackMetadata->Item[0]->Value;
 $TransactionId = $data->Body->stkCallback->CallbackMetadata->Item[1]->Value;
 $UserPhoneNumber = $data->Body->stkCallback->CallbackMetadata->Item[4]->Value;
-//CHECK IF THE TRASACTION WAS SUCCESSFUL 
+//CHECK IF THE TRASACTION WAS SUCCESSFUL
 if ($ResultCode == 0) {
   //STORE THE TRANSACTION DETAILS IN THE DATABASE
-  mysqli_query($db, "INSERT INTO transactions (MerchantRequestID,CheckoutRequestID,ResultCode,Amount,MpesaReceiptNumber,PhoneNumber) VALUES ('$MerchantRequestID','$CheckoutRequestID','$ResultCode','$Amount','$TransactionId','$UserPhoneNumber')");
+  mysqli_query($db, "INSERT INTO mpesa (MerchantRequestID,CheckoutRequestID,ResultCode,Amount,MpesaReceiptNumber,PhoneNumber) VALUES ('$MerchantRequestID','$CheckoutRequestID','$ResultCode','$Amount','$TransactionId','$UserPhoneNumber')");
 }

@@ -9,8 +9,8 @@ $BusinessShortCode = '174379';
 $Timestamp = date('YmdHis');
 // ENCRIPT  DATA TO GET PASSWORD
 $Password = base64_encode($BusinessShortCode . $passkey . $Timestamp);
-$phone = '254726687472';//phone number to receive the stk push
-$money = '1';
+$phone = '254'.$_SESSION['buyerPhone']; //phone number to receive the stk push
+$money = $_SESSION['totalPrice']; //amount to be paid
 $PartyA = $phone;
 $PartyB = '254726687472';
 $AccountReference = 'test';
