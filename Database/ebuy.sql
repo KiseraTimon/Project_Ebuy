@@ -437,4 +437,16 @@ CREATE TABLE mpesa (
   Amount int(11) NOT NULL,
   MpesaReceiptNumber varchar(500) NOT NULL,
   PhoneNumber varchar(500) NOT NULL
-)
+);
+
+CREATE TABLE businesses
+(
+	bID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    fname VARCHAR(255) NOT NULL,
+    lname VARCHAR(255) NOT NULL,
+    bname VARCHAR(255) NOT NULL,
+    bemail VARCHAR(255) NOT NULL,
+    bcontact INT NOT NULL,
+    hq VARCHAR(255) NOT NULL,
+    userID INT NOT NULL
+);
