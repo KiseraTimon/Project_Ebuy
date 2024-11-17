@@ -111,6 +111,14 @@
         $images = $row['images'];
         $availability = $row['availability'];
 
+        //Category
+        $catquery = "SELECT category FROM categories WHERE categoryID = ?";
+        $stmt = $conn->prepare($catquery);
+        $stmt->bind_param("i", $category);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $category = $result->fetch_assoc()['category'];
+
         // Checking availability value
         $statusClass = '';
         switch ($availability) {
