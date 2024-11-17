@@ -428,3 +428,13 @@ CREATE TABLE orders
     sellerUID TEXT NOT NULL,
     status VARCHAR(20) NOT NULL
 );
+
+CREATE TABLE mpesa (
+  ID int(11) NOT NULL PRIMARY KEY,
+  MerchantRequestID varchar(500) NOT NULL,
+  CheckoutRequestID varchar(500) NOT NULL,
+  ResultCode varchar(500) NOT NULL,
+  Amount int(11) NOT NULL,
+  MpesaReceiptNumber varchar(500) NOT NULL,
+  PhoneNumber varchar(500) NOT NULL
+)
