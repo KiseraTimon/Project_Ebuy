@@ -1,242 +1,623 @@
 <?php
-//Start Session
-//session_start();
+//Database connection
+require ('../../components/database.php');
+require_once('../../loader.php');
 
-/*if (!isset($_SESSION['accountType']) && $_SESSION['accountType'] != 'admin') {
+//Sessions
+session_start();
+
+//Verify identity
+if (!isset($_SESSION['accountType']) || $_SESSION['accountType'] !== 'admin') {
     echo '<script>
-            alert("You are not authorized to view this page.");
-            window.location.href = "/index.php";
-            </script>';
+    alert("You are not authorized to access this page");
+    window.location.href = "/pages/login.php";
+    </script>';
     exit();
-}*/
+}
 
-//Database Connection
-require_once '../../components/database.php';
+//Fetch user data
+if(isset($_SESSION['userID']))
+{
+    $userID = $_SESSION['userID'];
+    $sql = "SELECT * FROM users WHERE userID = '$userID'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+
+    $profilepic = $row['profilePic'];
+    $fname = $row['fName'];
+    $lname = $row['lName'];
+    $uname = $row['uname'];
+    $email = $row['email'];
+    $password = $row['passw'];
+	$contact = $row['contactphone'];
+
+    // BLOB conversion
+    $profilepic = base64_encode($profilepic);
+    $profilepic = 'data:image/jpeg;base64,'.$profilepic;
+}
+else
+{
+    header("Location: ../../index.php");
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Car Depot</title>
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../../defaults.css">
-    <link rel="stylesheet" href="../clientprofile/css/style.css">
-    
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/style.css">
+	<link rel="stylesheet" href="/defaults.css">
+
+	<title>Admin Portal</title>
 </head>
 <body>
-  <div class="container">
-    <!--Sidepanel-->
-    <aside>
-        <div class="top">
-          <div class="logo">
-            <h2>Hello, Admin <span class="danger"></span> </h2>
-          </div>
-          <div class="close" id="close_btn">
-          <span class="material-symbols-sharp">
-            close
-            </span>
-          </div>
-        </div>
-        <!-- end top -->
-        <div class="sidebar">
-
-          <a href="#" onclick="showTab('dashboard')">
-            <span class="material-symbols-sharp">grid_view </span>
-            <h3>Dashboard</h3>
-          </a>
-          <a href="divisions/userreport.php" onclick="showTab('users')">
-            <span class="material-symbols-sharp">person_outline </span>
-            <h3>View users</h3>
-          </a>
-          <!-- <a href="#">
-            <span class="material-symbols-sharp">insights </span>
-            <h3>Analytics</h3>
-          </a> -->
-          
-          
-          <!-- <a href="#">
-            <span class="material-symbols-sharp">mail_outline </span>
-            <h3>Inquiries</h3>
-            <span class="msg_count">14</span>
-          </a> -->
-          <a href="divisions/allreports.php" onclick="showTab('reports')">
-            <span class="material-symbols-sharp">report_gmailerrorred </span>
-            <h3>Reports</h3>
-          </a>
-          <a href="divisions/settings.php" onclick="showTab('settings')">
-            <span class="material-symbols-sharp">settings </span>
-            <h3>settings</h3>
-          </a>
-          <!-- <a href="#">
-            <span class="material-symbols-sharp">add </span>
-            <h3>Add Product</h3>
-          </a> -->
-          <a href="/index.php">
-            <span class="material-symbols-sharp">home </span>
-            <h3>Home</h3>
-          </a>
-          <a href="/formclasses/assets/php/logout.php">
-            <span class="material-symbols-sharp">logout </span>
-            <h3>logout</h3>
-          </a>
-        </div>
-    </aside>
-
-    <!--Topbar for shrinked screens-->
-    <div class="topbar">
-      <div class="quicklinks">
-          <a href="/index.php">
-            <span class="material-symbols-sharp">home</span>
-            <!-- <h3>Dashboard</h3> -->
-          </a>
-          <a href="javascript:void(0);" onclick="showTab('dashboard')">
-            <span class="material-symbols-sharp">grid_view </span>
-            <!-- <h3>Dashboard</h3> -->
-          </a>
-          <a href="javascript:void(0);" onclick="showTab('users')">
-            <span class="material-symbols-sharp">person_outline </span>
-            <!-- <h3>View users</h3> -->
-          </a>
-          <!-- <a href="#">
-            <span class="material-symbols-sharp">insights </span>
-            <h3>Analytics</h3>
-          </a> -->
-          <a href="javascript:void(0);" onclick="showTab('vehicles')">
-            <span class="material-symbols-sharp">car_tag</span>
-            <!-- <h3>Add Vehicle</h3> -->
-          </a>
-          <a href="javascript:void(0);" onclick="showTab('inventory')">
-            <span class="material-symbols-sharp">garage</span>
-            <!-- <h3>Inventory</h3> -->
-          </a>
-          <a href="javascript:void(0);" onclick="showTab('inventory')">
-            <span class="material-symbols-sharp">event</span>
-            <!-- <h3>Inventory</h3> -->
-          </a>
-          <!-- <a href="#">
-            <span class="material-symbols-sharp">mail_outline </span>
-            <h3>Inquiries</h3>
-            <span class="msg_count">14</span>
-          </a> -->
-          <a href="javascript:void(0);" onclick="showTab('reports')">
-            <span class="material-symbols-sharp">report_gmailerrorred </span>
-            <!-- <h3>Reports</h3> -->
-          </a>
-          <a href="javascript:void(0);" onclick="showTab('settings')">
-            <span class="material-symbols-sharp">settings </span>
-            <!-- <h3>settings</h3> -->
-          </a>
-          <!-- <a href="#">
-            <span class="material-symbols-sharp">add </span>
-            <h3>Add Product</h3>
-          </a> -->
-          <a href="/forms/logout.php">
-            <span class="material-symbols-sharp">logout </span>
-            <!-- <h3>logout</h3> -->
-          </a>
-      </div>
-    </div>
 
 
-    <div class="container-fluid py-2">
-      <div class="row">
-        <div class="ms-3">
-          <h3 class="mb-0 h4 font-weight-bolder">Dashboard</h3>
-          <p class="mb-4">
-            Check the sales, value and bounce rate by country.
-          </p>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-header p-2 ps-3">
-              <div class="d-flex justify-content-between">
-                <div>
-                  <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                  <h4 class="mb-0">5300</h4>
-                </div>
-                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                  
-                </div>
-              </div>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer p-2 ps-3">
-              <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+% </span>than last week</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-header p-2 ps-3">
-              <div class="d-flex justify-content-between">
-                <div>
-                  <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                  <h4 class="mb-0">5</h4>
-                </div>
-                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                  
-                </div>
-              </div>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer p-2 ps-3">
-              <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+0% </span>than last month</p>
-            </div>
-          </div>
-        </div>
-        <!--
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-header p-2 ps-3">
-              <div class="d-flex justify-content-between">
-                <div>
-                  <p class="text-sm mb-0 text-capitalize">Ads Views</p>
-                  <h4 class="mb-0">3,462</h4>
-                </div>
-                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                  
-                </div>
-              </div>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer p-2 ps-3">
-              <p class="mb-0 text-sm"><span class="text-danger font-weight-bolder">-2% </span>than yesterday</p>
-            </div>
-          </div>
-        </div>-->
-        <div class="col-xl-3 col-sm-6">
-          <div class="card">
-            <div class="card-header p-2 ps-3">
-              <div class="d-flex justify-content-between">
-                <div>
-                  <p class="text-sm mb-0 text-capitalize">Sales</p>
-                  <h4 class="mb-0">0.00</h4>
-                </div>
-                <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
-                  
-                </div>
-              </div>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer p-2 ps-3">
-              <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">+% </span>than yesterday</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-    
-    
+	<!--Sidebar-->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<span class="text">Ebuy</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="#">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-shopping-bag-alt' ></i>
+					<span class="text">Product Listings</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">Businesses</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-message-dots' ></i>
+					<span class="text">Testimonials</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-cog' ></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="/formclasses/assets/php/logout.php" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!--Sidebar-->
 
-<!--Scripts-->
-<script src="script.js"></script>
 
+
+	<!--Content-->
+	<section id="content">
+		<!--Navbar-->
+		<nav>
+			<!--Sidebar toggle-->
+			<i class='bx bx-menu' ></i>
+
+			<!--Search Box-->
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Search...">
+					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+				</div>
+			</form>
+
+			<!--Dark/Light mode-->
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+
+			<!--Welcome Text-->
+			<p>Hello, <?php echo $_SESSION['fname'].' '.$_SESSION['lname'];?></p>
+			<a href="#" class="profile">
+			<img src="<?php echo $profilepic;?>" alt="<?php echo $fname.' '.$lname?>">
+			</a>
+		</nav>
+		<!--Navbar-->
+
+		<!--Dashboard Page-->
+		<main id="dashboardpage">
+			<!--Title-->
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Home</a>
+						</li>
+					</ul>
+				</div>
+				<!-- <a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download' ></i>
+					<span class="text">Download PDF</span>
+				</a> -->
+			</div>
+
+			<!--Cards-->
+			<ul class="box-info">
+				<!--Orders Card-->
+				<li>
+					<?php
+					$sql = "SELECT COUNT(*) AS total FROM orders";
+					$result = mysqli_query($conn, $sql);
+					$row = mysqli_fetch_assoc($result);
+					$totalorders = $row['total'];
+
+					if($totalorders == NULL)
+					{
+						$totalorders = 0;
+					}
+					?>
+					<i class='bx bxs-calendar-check' ></i>
+					<span class="text">
+						<h3><?php echo $totalorders?></h3>
+						<p>Orders</p>
+					</span>
+				</li>
+
+				<!--Businesses Card-->
+				<li>
+					<?php
+					$sql = "SELECT COUNT(*) AS total FROM businesses";
+					$result = mysqli_query($conn, $sql);
+					$row = mysqli_fetch_assoc($result);
+					$totalbusinesses = $row['total'];
+
+					if($totalbusinesses == NULL)
+					{
+						$totalbusinesses = 0;
+					}
+					?>
+					<i class='bx bxs-group' ></i>
+					<span class="text">
+						<h3><?php echo $totalbusinesses?></h3>
+						<p>Active Businesses</p>
+					</span>
+				</li>
+
+				<!--Transactions Card-->
+				<li>
+					<?php
+					//Sum content of Amount column in mpesa table
+					$sql = "SELECT SUM(Amount) AS total FROM mpesa";
+					$result = mysqli_query($conn, $sql);
+					$row = mysqli_fetch_assoc($result);
+					$totaltransactions = $row['total'];
+
+					if($totaltransactions == NULL)
+					{
+						$totaltransactions = 0;
+					}
+					?>
+					<i class='bx bxs-dollar-circle' ></i>
+					<span class="text">
+						<h3><?php echo $totaltransactions?><sup style="font-family: 'Poppins', sans-serif">KES</sup></h3>
+						<p>Total Transactions</p>
+					</span>
+				</li>
+			</ul>
+			
+			<!--Top Businesses-->
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Top Businesses</h3>
+						<!-- <i class='bx bx-search' ></i>
+						<i class='bx bx-filter' ></i> -->
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Business</th>
+								<th>CEO</th>
+								<th>Order Value</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!--Fetch top businesses by order value from order table-->
+							<?php
+							$sql = "SELECT businesses.bname, businesses.fname, businesses.lname, SUM(orders.totalPrice) AS totalPrice FROM businesses INNER JOIN orders ON businesses.userID = orders.sellerUID GROUP BY businesses.bname ORDER BY totalPrice DESC LIMIT 5";
+
+							if(mysqli_num_rows($result) > 0)
+							{
+								while($row = mysqli_fetch_assoc($result))
+								{
+									$businessname = $row['bname'];
+									$ceofname = $row['fname'];
+									$ceolname = $row['lname'];
+									$ordervalue = $row['totalPrice'];
+									?>
+									<tr>
+										<td><?php echo $businessname?></td>
+										<td><?php echo $ceofname.' '.$ceolname?></td>
+										<td><?php echo $ordervalue?></td>
+									</tr>
+									<?php
+								}
+							}
+							?>
+
+							<!-- <tr>
+								<td>
+									<img src="img/people.png">
+									<p>John Doe</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status completed">Completed</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>John Doe</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status pending">Pending</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>John Doe</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status process">Process</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>John Doe</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status pending">Pending</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>John Doe</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status completed">Completed</span></td>
+							</tr> -->
+						</tbody>
+					</table>
+				</div>
+
+				<!--Todo list-->
+				<div class="todo">
+					<div class="head">
+						<h3>Todos</h3>
+						<i class='bx bx-plus' ></i>
+						<i class='bx bx-filter' ></i>
+					</div>
+					<ul class="todo-list">
+						<li class="completed">
+							<p>Todo List</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="completed">
+							<p>Todo List</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="not-completed">
+							<p>Todo List</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="completed">
+							<p>Todo List</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="not-completed">
+							<p>Todo List</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+
+		<!--Product Listings-->
+		<main id="productlistings" hidden>
+			<div class="head-title">
+				<div class="left">
+					<h1>Product Listings</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Product Listings</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!--Product Listings-->
+			<table class="listingtable">
+				<!--Table Head-->
+				<thead>
+					<tr>
+						<th>Product</th>
+						<th>Category</th>
+						<th>Subcategory</th>
+						<th>Price</th>
+						<th>Business</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+
+					$sqlProducts = "SELECT * FROM products";
+					$resultProducts = mysqli_query($conn, $sqlProducts);
+
+					if (mysqli_num_rows($resultProducts) > 0) {
+						while ($rowProduct = mysqli_fetch_assoc($resultProducts)) {
+							$productID = $rowProduct['productID'];
+							$product = $rowProduct['productName'];
+							$categoryID = $rowProduct['category'];
+							$subcategory = $rowProduct['subcategory'];
+							$price = $rowProduct['price'];
+							$ownerID = $rowProduct['userID'];
+
+							//Number formatting
+							$price = number_format($price);
+
+							// Fetch category name
+							$sqlCategory = "SELECT category FROM categories WHERE categoryID = '$categoryID'";
+							$resultCategory = mysqli_query($conn, $sqlCategory);
+							$rowCategory = mysqli_fetch_assoc($resultCategory);
+							$categoryName = $rowCategory['category'];
+
+							// Fetch business name
+							$sqlBusiness = "SELECT bname FROM businesses WHERE userID = '$ownerID'";
+							$resultBusiness = mysqli_query($conn, $sqlBusiness);
+							$rowBusiness = mysqli_fetch_assoc($resultBusiness);
+							$businessName = $rowBusiness['bname'];
+							?>
+							<tr>
+								<td><?php echo $product; ?></td>
+								<td><?php echo $categoryName; ?></td>
+								<td><?php echo $subcategory; ?></td>
+								<td><?php echo $price; ?><sup>KES</sup></td>
+								<td><?php echo $businessName; ?></td>
+							</tr>
+							<?php
+						}
+					}
+					?>
+				</tbody>
+			</table>
+		</main>
+
+		<!--Businesses-->
+		<main id="businesses" hidden>
+			<div class="head-title">
+				<div class="left">
+					<h1>Registered Businesses</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Businesses</a>
+						</li>
+					</ul>
+				</div>
+				<!-- <a href="#" class="btn-download">
+						<i class='bx bxs-cloud-download' ></i>
+						<span class="text">Download PDF</span>
+					</a> -->
+			</div>
+
+			<!--Businesses-->
+			<table class="listingtable">
+				<!--Table Head-->
+				<thead>
+					<tr>
+						<th>Business</th>
+						<th>CEO</th>
+						<th>Email</th>
+						<th>Contact</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					$sqlBusinesses = "SELECT * FROM businesses";
+					$resultBusinesses = mysqli_query($conn, $sqlBusinesses);
+
+					if (mysqli_num_rows($resultBusinesses) > 0) {
+						while ($rowBusiness = mysqli_fetch_assoc($resultBusinesses)) {
+							$businessID = $rowBusiness['bID'];
+							$businessName = $rowBusiness['bname'];
+							$ceoFname = $rowBusiness['fname'];
+							$ceoLname = $rowBusiness['lname'];
+							$email = $rowBusiness['bemail'];
+							$contact = $rowBusiness['bcontact'];
+							?>
+							<tr>
+								<td><?php echo $businessName; ?></td>
+								<td><?php echo $ceoFname . ' ' . $ceoLname; ?></td>
+								<td><?php echo $email; ?></td>
+								<td><?php echo $contact; ?></td>
+							</tr>
+							<?php
+						}
+					}
+					?>
+				</tbody>
+			</table>
+		</main>
+
+		<!--Testimonials-->
+		<main id="testimonials" hidden>
+			<div class="head-title">
+				<div class="left">
+					<h1>Testimonials</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Testimonials</a>
+						</li>
+					</ul>
+				</div>
+
+				<!-- <a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download' ></i>
+					<span class="text">Download PDF</span>
+				</a> -->
+			</div>
+
+			<!--Testimonials-->
+			<table class="listingtable">
+				<!--Table Head-->
+				<thead>
+					<tr>
+						<th>Customer</th>
+						<th>Testimonial</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					
+					$sqlTestimonials = "SELECT * FROM testimonials";
+					$resultTestimonials = mysqli_query($conn, $sqlTestimonials);
+
+					if (mysqli_num_rows($resultTestimonials) > 0) {
+						while ($rowTestimonial = mysqli_fetch_assoc($resultTestimonials)) {
+							$testimonialID = $rowTestimonial['testID'];
+							$dispname = $rowTestimonial['dispname'];
+							$testimonial = $rowTestimonial['testreview'];
+							$date = $rowTestimonial['date'];
+							$customerID = $rowTestimonial['userID'];
+
+							// Fetch customer name
+							$sqlCustomer = "SELECT fName, lName FROM users WHERE userID = '$customerID'";
+							$resultCustomer = mysqli_query($conn, $sqlCustomer);
+							$rowCustomer = mysqli_fetch_assoc($resultCustomer);
+							$customerName = $rowCustomer['fName'] . ' ' . $rowCustomer['lName'];
+
+							?>
+							<tr>
+								<td><?php echo $customerName; ?></td>
+								<td><?php echo $testimonial; ?></td>
+								<td><?php echo $date; ?></td>
+							</tr>
+							<?php
+							}
+					}
+					?>
+				</tbody>
+			</table>
+		</main>
+
+		<!--Settings-->
+		<main id="settings" hidden>
+			<div class="head-title">
+				<div class="left">
+					<h1>Settings</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Settings</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!--Settings-->
+			<div class="settings">
+				<img
+				src="<?php
+				//Display image
+				echo $profilepic;
+				?>">
+			</div>
+
+			<div class="account">
+				<div class="accnote">
+				<h1>Account Information</h1>
+				</div>
+				<div class="acctext">
+					<form action="/formclasses/assets/php/updator.php" method="POST" enctype="multipart/form-data">
+					<!--fname-->
+					<label for="fname">First Name</label>
+					<input type="text" name="fname" value="<?php echo $fname?>"><br>
+
+					<!--lname-->
+					<label for="lname">Last Name</label>
+					<input type="text" name="lname" value="<?php echo $lname?>"><br>
+
+					<!--uname-->
+					<label for="uname">Username</label>
+					<input type="text" name="uname" value="<?php echo $uname?>"><br>
+
+					<!--email-->
+					<label for="email">Email</label>
+					<input type="email" name="email" value="<?php echo $email?>"><br>
+
+					<!--contact-->
+					<label for="contact">Contact</label>
+					<input type="text" name="contact" value="<?php echo $contact?>"><br>
+
+					<!--Current password-->
+					<input type="hidden" name="currentpassword" value="<?php echo $password?>" readonly>
+
+					<!--New password-->
+					<label for="password">New Password</label>
+					<input type="password" name="password"><br>
+
+					<!--Confirm password-->
+					<label for="confirmpassword">Confirm Password</label>
+					<input type="password" name="confirmpassword"><br>`
+
+					<!--profilepic-->
+					<label for="profilepic">Profile Picture</label>
+					<input type="file" name="profilepic"><br>
+
+					<!--Submit-->
+					<input type="submit" name="update" value="update">
+					</form>
+				</div>
+			</div>
+		</main>
+
+		<!--Main-->
+	</section>
+	<!--Content-->
+	
+
+	<script src="script.js"></script>
 </body>
 </html>
