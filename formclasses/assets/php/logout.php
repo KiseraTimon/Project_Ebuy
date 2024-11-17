@@ -19,7 +19,8 @@ if (isset($_SESSION['userID'])) {
             window.history.pushState(null, null, window.location.href);
         };
     }
-    alert("You have been logged out successfully");window.location.href="/index.php";
+    alert("You have been logged out successfully");
+    window.location.href="/index.php";
     </script>';
 } else {
     // If the user is not logged in, redirect them to the login page
@@ -31,7 +32,7 @@ if (isset($_SESSION['userID'])) {
             window.history.pushState(null, null, window.location.href);
         };
     }
-    window.location.href="/pages/authPages/signin.html";
+    window.location.href="/pages/login.php";
     </script>';
 }
 ?>
