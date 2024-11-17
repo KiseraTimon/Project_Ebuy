@@ -29,6 +29,15 @@ if (isset($_GET['productID'])) {
             $images = $row['images'];
             $availability = $row['availability'];
 
+            //Fetch business details
+            $businessquery = "SELECT * FROM businesses WHERE userID = '$userID'";
+            $businessresult = $conn->query($businessquery);
+            $businessrow = $businessresult->fetch_assoc();
+            $businessname = $businessrow['bname'];
+            $businessemail = $businessrow['bemail'];
+            $businessphone = $businessrow['bcontact'];
+            $businesslocation = $businessrow['hq'];
+
             //Decoding JSON image paths to PHP array
             $images = json_decode($images, true);
 
@@ -137,30 +146,24 @@ if (isset($_GET['productID'])) {
                         <span class="pricespan"><?php echo $pricestatus?></span>
                     </p>
                 </div>
-                <!-- <div class="stats">
-                    <span><?php echo $engineoutput.' cc'?></span>
-                    <span><?php echo $mileage.' km'?></span>
-                    <span><?php echo $transmission?></span>
-                    <span><?php echo $YOM?></span>
-                </div> -->
                 <div class="notes">
                     <p>
-                        For safety and compliance, we recommend that you inquire directly through the contact details below
+                        For updates, safety and compliance, we recommend that you reach out to the business '<b><?php echo $businessname?></b>' regarding this product.
                     </p>
                     <br>
                     <br>
                     <table>
                         <tr>
                             <td>Phone</td>
-                            <td>000 000 0000</td>
+                            <td><?php echo '(+254)'.$businessphone?></td>
                         </tr>
                         <tr>
                             <td>Email</td>
-                            <td>ebuy@gmail.com</td>
+                            <td><?php echo $businessemail?></td>
                         </tr>
                         <tr>
                             <td>Visit</td>
-                            <td>Ole Sangale Dr</td>
+                            <td><?php echo $businesslocation?></td>
                         </tr>
                     </table>
                 </div>
