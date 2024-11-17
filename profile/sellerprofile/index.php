@@ -45,6 +45,7 @@ if(isset($_SESSION['userID']))
     $uname = $row['uname'];
     $email = $row['email'];
     $password = $row['passw'];
+	$contact = $row['contactphone'];
 
     // BLOB conversion
     $profilepic = base64_encode($profilepic);
@@ -73,7 +74,7 @@ else
 	<!--Sidebar-->
 	<section id="sidebar">
 		<!--Logo-->
-		<a href="#" class="brand"><!--<i class='bx bxs-smile icon'>--></i> Ebuy</a>
+		<a href="#" class="brand"><!--<i class='bx bxs-smile icon'>--></i>Ebuy</a>
 		<ul class="side-menu">
 
 			<!--Dashboard-->
@@ -98,8 +99,8 @@ else
 		<!--Buttons-->
 		<div class="ads">
 			<div class="wrapper">
-				<a href="#" class="btn-upgrade">Home</a>
-				<a href="#" class="btn-upgrade">Logout</a>
+				<a href="/index.php" class="btn-upgrade">Home</a>
+				<a href="/formclasses/assets/php/logout.php" class="btn-upgrade">Logout</a>
 			</div>
 		</div>
 	</section>
@@ -529,7 +530,57 @@ else
 				<li class="divider">/</li>
 				<li><a href="#" class="active">Edit profile</a></li>
 			</ul>
-			<!--Edit Profile Page-->
+			
+			<div class="settings">
+				<img
+				src="<?php
+				//Display image
+				echo $profilepic;
+				?>">
+			</div>
+
+			<div class="account">
+				<div class="accnote">
+				<h1>Account Information</h1>
+				</div>
+				<div class="acctext">
+					<form action="../updator.php" method="POST" enctype="multipart/form-data">
+					<!--fname-->
+					<label for="fname">First Name</label>
+					<input type="text" name="fname" value="<?php echo $fname?>"><br>
+
+					<!--lname-->
+					<label for="lname">Last Name</label>
+					<input type="text" name="lname" value="<?php echo $lname?>"><br>
+
+					<!--uname-->
+					<label for="uname">Username</label>
+					<input type="text" name="uname" value="<?php echo $uname?>"><br>
+
+					<!--email-->
+					<label for="email">Email</label>
+					<input type="email" name="email" value="<?php echo $email?>"><br>
+
+					<label for="password">Current Password</label>
+					<input type="password" name="currentpassword" value="<?php echo $password?>" readonly><br>
+
+					<!--New password-->
+					<label for="password">New Password</label>
+					<input type="password" name="password"><br>
+
+					<!--Confirm password-->
+					<label for="confirmpassword">Confirm Password</label>
+					<input type="password" name="confirmpassword"><br>`
+
+					<!--profilepic-->
+					<label for="profilepic">Profile Picture</label>
+					<input type="file" name="profilepic"><br>
+
+					<!--Submit-->
+					<input type="submit" value="update">
+					</form>
+				</div>
+			</div>
 		</main>
 		<!--End of Tabs-->
 	</section>
