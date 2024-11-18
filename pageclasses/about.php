@@ -16,6 +16,13 @@ class aboutpage
                 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
                 rel="stylesheet"
                 />
+                <!-- Font Awesome -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+                />
+                <!-- Google Fonts -->
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
+
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZ88mC6Up2uqS1pt6ER7jxBqNC1L+1VRcPH4C8m25tTzI89e4OhoPHd+1qWl26d" crossorigin="anonymous">
 
                 <!--Internal CSSs-->
@@ -31,6 +38,7 @@ class aboutpage
     //About page
     function about()
     {
+        global $ratings;
         ?>
             <div class="container">
                 <div class="context">
@@ -178,32 +186,40 @@ class aboutpage
                                 // Database Connection
                                 include '../components/database.php';
 
-                                //Ratings function
-                                require_once '../components/ratings.php';
-                                $ratings = new ratings();
-
                                 //Populating variables
                                 $sql = "SELECT * FROM testimonials";
                                 $result = $conn->query($sql);
 
                                 //Populating Testimonials
                                 if ($result->num_rows > 0) {
+                                    
                                     while($row = $result->fetch_assoc()) {
+                                        //Variables
+
+                                        $dispname = $row['dispname'];
+                                        $tests = $row['tests'];
+                                        $testreview = $row['testreview'];
+
                                     ?>
                                     <div class="testimonialcard">
                                         <div class="testname">
-                                            <h2><?php echo $row['dispname'];?></h2>
+                                            <h2><?php echo $dispname;?></h2>
                                         </div>
                                         <div class="testcontent">
-                                            <p><?php echo $row['tests'];?></p>
+                                            <p><?php echo $tests;?></p>
                                         </div>
                                         <div class="testrating">
                                             <span>
-                                                
                                                 <?php
-                                                $rating = $row['testreview'];
-
-                                                echo $ratings->displayStars($rating);
+                                                if(isset($testreview))
+                                                {
+                                                    require_once ('../loader.php');
+                                                    echo $ratings->displayStars($testreview);
+                                                }
+                                                else
+                                                {
+                                                    echo 'No rating';
+                                                }
                                             ?>
                                             </span>
                                             </div>
