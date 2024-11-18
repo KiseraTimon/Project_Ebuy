@@ -664,6 +664,31 @@ main .btn-send:hover {
 	background: #8db0de58;
 }
 
+.prodtable tbody tr td form
+{
+	display: inline-block;
+}
+
+.prodtable tbody tr td form input[type="submit"]
+{
+	background: var(--red);
+	color: var(--light);
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.prodtable tbody tr td form input[type="submit"]:hover
+{
+	background: var(--dark-blue);
+}
+
+.prodtable tbody tr td form select
+{
+	padding: 5px;
+}
+
 .add-prod
 {
     max-width: 60%;

@@ -88,12 +88,12 @@ else
 				</ul>
 			</li> -->
 			<li><a href="#" id="addproduct-tab" data-target="addprodspage"><i class='bx bxs-inbox icon' ></i>Add product</a></li>
-			<li><a href="#" id="prodlist-tab" data-target="prodlistpage"><i class='bx bxs-inbox icon' ></i>Product Listings</a></li>
+			<li><a href="#" id="prodlist-tab" data-target="prodlistpage"><i class='bx bxs-cart icon' ></i>Product Listings</a></li>
 			<li><a href="#" id="orders-tab" data-target="orderspage"><i class='bx bxs-chart icon' ></i> Orders</a></li>
 
 			<!--Account-->
 			<li class="divider" data-text="Account">Account</li>
-			<li><a href="#" id="editprofile-tab" data-target="editprofilepage"><i class='bx bx-table icon' ></i> Edit profile</a></li>
+			<li><a href="#" id="editprofile-tab" data-target="editprofilepage"><i class='bx bx-cog icon' ></i> Edit profile</a></li>
 		</ul>
 
 		<!--Buttons-->
@@ -493,6 +493,7 @@ else
 						<th>Price/Unit</th>
 						<th>Total</th>
 						<th>Status</th>
+						<th>Update</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -541,6 +542,21 @@ else
 											<td><?php echo $price; ?></td>
 											<td><?php echo $totalPrice; ?></td>
 											<td><?php echo $status; ?></td>
+											<td>
+												<form method="POST" action="/profile/sellerprofile/assets/php/tracking.php">
+													<input type="hidden" name="orderID" value="<?php echo $orderID; ?>">
+													<input type="hidden" name="sellerUID" value="<?php echo $userID; ?>">
+													<select name="status">
+														<option value="<?php echo $status?>"><?php echo $status?></option>
+														<option value="Pending">Pending</option>
+														<option value="Processing">Processing</option>
+														<option value="Shipped">Shipped</option>
+														<option value="Delivered">Completed</option>
+													</select>
+													<input type="submit" value="Update">
+
+												</form>
+											</td>
 										</tr>
 										<?php
 									}
