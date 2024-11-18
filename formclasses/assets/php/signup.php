@@ -93,7 +93,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bind_result($userID);
             $stmt->fetch();
             $_SESSION['userID'] = $userID;
+            $_SESSION['fname'] = $uname;
+            $_SESSION['lname'] = $uname;
             $_SESSION['uname'] = $uname;
+            $_SESSION['email'] = $email;
             $_SESSION['accountType'] = $accountType;
             
             echo '<script>
