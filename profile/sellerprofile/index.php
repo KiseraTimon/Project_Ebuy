@@ -484,42 +484,76 @@ else
 				<li><a href="#" class="active">Orders</a></li>
 			</ul>
 			
-			<?php
-			$sql = "SELECT * FROM orders WHERE sellerUID = '$userID'";
-			$result = mysqli_query($conn, $sql);
-			
-			if ($result && mysqli_num_rows($result) > 0) {
-				while ($row = mysqli_fetch_assoc($result)) {
-					// Decode JSON-encoded arrays
-					$itemNames = json_decode($row['itemNames'], true);
-					$itemQuantities = json_decode($row['itemQuantities'], true);
-					$itemPrices = json_decode($row['itemPrices'], true);
-					$itemTotalPrices = json_decode($row['itemTotalPrices'], true);
-			
-					// Ensure the arrays have the same length
-					if (count($itemNames) === count($itemQuantities) &&
-						count($itemQuantities) === count($itemPrices) &&
-						count($itemPrices) === count($itemTotalPrices)) {
+			<table class="prodtable">
+				<thead>
+					<tr>
+						<th>Product</th>
+						<th>Buyer</th>
+						<th>Quantity</th>
+						<th>Price/Unit</th>
+						<th>Total</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+						$sql = "SELECT * FROM orders WHERE sellerUID = '$userID'";
+						$result = mysqli_query($conn, $sql);
 						
-						// Loop through arrays by index
-						for ($i = 0; $i < count($itemNames); $i++) {
-							// Fetch values by index
-							$name = $itemNames[$i];
-							$quantity = $itemQuantities[$i];
-							$price = $itemPrices[$i];
-							$totalPrice = $itemTotalPrices[$i];
-			
-							// Output the data or process it
-							echo "Item Name: $name, Quantity: $quantity, Price: $price, Total: $totalPrice<br>";
+						if ($result && mysqli_num_rows($result) > 0) {
+							while ($row = mysqli_fetch_assoc($result)) {
+								//Variables
+								$orderID = $row['orderID'];
+								$buyerUID = $row['buyerUID'];
+								$status = $row['status'];
+
+								// Fetch buyer details
+								$buyerQuery = "SELECT fName, lName FROM users WHERE userID = '$buyerUID'";
+								$buyerResult = mysqli_query($conn, $buyerQuery);
+								$buyerRow = mysqli_fetch_assoc($buyerResult);
+								$buyerName = $buyerRow['fName'] . ' ' . $buyerRow['lName'];
+
+								// Decode JSON-encoded arrays
+								$itemNames = json_decode($row['itemNames'], true);
+								$itemQuantities = json_decode($row['itemQuantities'], true);
+								$itemPrices = json_decode($row['itemPrices'], true);
+								$itemTotalPrices = json_decode($row['itemTotalPrices'], true);
+						
+								// Ensure the arrays have the same length
+								if (count($itemNames) === count($itemQuantities) &&
+									count($itemQuantities) === count($itemPrices) &&
+									count($itemPrices) === count($itemTotalPrices)) {
+									
+									// Loop through arrays by index
+									for ($i = 0; $i < count($itemNames); $i++) {
+										// Fetch values by index
+										$name = $itemNames[$i];
+										$quantity = $itemQuantities[$i];
+										$price = $itemPrices[$i];
+										$totalPrice = $itemTotalPrices[$i];
+						
+										// Output the data or process it
+										?>
+										<tr>
+											<td><?php echo $name; ?></td>
+											<td><?php echo $buyerName; ?></td>
+											<td><?php echo $quantity; ?></td>
+											<td><?php echo $price; ?></td>
+											<td><?php echo $totalPrice; ?></td>
+											<td><?php echo $status; ?></td>
+										</tr>
+										<?php
+									}
+								} else {
+									echo "Data mismatch in order ID: " . $row['orderID'] . "<br>";
+								}
+							}
+						} else {
+							echo "No orders found.";
 						}
-					} else {
-						echo "Data mismatch in order ID: " . $row['orderID'] . "<br>";
-					}
-				}
-			} else {
-				echo "No orders found.";
-			}
-			?>
+					?>
+				</tbody>
+			</table>
 		</main>
 
 		<!--Edit Profile-->
