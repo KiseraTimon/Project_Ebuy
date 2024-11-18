@@ -191,7 +191,7 @@ else
 
 				<!--Catalogue value-->
 				<?php
-				$sql = "SELECT SUM(price) AS catalogueValue FROM products WHERE userID = '$userID'";
+				$sql = "SELECT SUM(price * quantity) AS catalogueValue FROM products WHERE userID = '$userID'";
 				$result = mysqli_query($conn, $sql);
 				$row = mysqli_fetch_assoc($result);
 				$catalogueValue = $row['catalogueValue'];
@@ -224,7 +224,7 @@ else
 				<div class="card">
 					<div class="head">
 						<div>
-							<h2><?php echo $orderValue?></h2>
+							<h2><?php echo $orderValue?><sup>KES</sup></h2>
 							<p>Orders value</p>
 						</div>
 						<i class='bx bx-trending-up icon' ></i>
