@@ -49,6 +49,12 @@ else
 
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
 	<!-- My CSS -->
 	<link rel="stylesheet" href="/profile/adminprofile/assets/css/style.css">
 	<link rel="stylesheet" href="/style.css">
@@ -503,7 +509,7 @@ else
 				<thead>
 					<tr>
 						<th>Customer</th>
-						<th>Testimonial</th>
+						<th>Rating</th>
 						<th>Date</th>
 					</tr>
 				</thead>
@@ -517,7 +523,7 @@ else
 						while ($rowTestimonial = mysqli_fetch_assoc($resultTestimonials)) {
 							$testimonialID = $rowTestimonial['testID'];
 							$dispname = $rowTestimonial['dispname'];
-							$testimonial = $rowTestimonial['testreview'];
+							$rating = $rowTestimonial['testreview'];
 							$date = $rowTestimonial['date'];
 							$customerID = $rowTestimonial['userID'];
 
@@ -526,11 +532,14 @@ else
 							$resultCustomer = mysqli_query($conn, $sqlCustomer);
 							$rowCustomer = mysqli_fetch_assoc($resultCustomer);
 							$customerName = $rowCustomer['fName'] . ' ' . $rowCustomer['lName'];
-
+							
+							//Rating stars
+							require_once ('../../components/ratings.php');
+							$value = $ratings->displayStars($rating);
 							?>
 							<tr>
 								<td><?php echo $customerName; ?></td>
-								<td><?php echo $testimonial; ?></td>
+								<td><?php echo $value;?></td>
 								<td><?php echo $date; ?></td>
 							</tr>
 							<?php
@@ -618,7 +627,50 @@ else
 		<!--Main-->
 	</section>
 	<!--Content-->
+
+	<!--PHP Functions-->
+	<?php
 	
+	function displayStars($rating)
+    {
+        $stars = '';
+
+        //half star if rating is < 15
+        //1 star if rating is < 25
+        //1.5 stars if rating is < 35
+        //2 stars if rating is < 45
+        //2.5 stars if rating is < 55
+        //3 stars if rating is < 65
+        //3.5 stars if rating is < 75
+        //4 stars if rating is < 85
+        //4.5 stars if rating is < 95
+        //5 stars if rating is > 95
+
+        if ($rating < 15) {
+            $stars = '<i class="ri-star-half-line"></i>';
+        } elseif ($rating < 25) {
+            $stars = '<i class="ri-star-fill"></i>';
+        } elseif ($rating < 35) {
+            $stars = '<i class="ri-star-fill"></i><i class="ri-star-half-line"></i>';
+        } elseif ($rating < 45) {
+            $stars = '<i class="ri-star-fill"></i><i class="ri-star-fill"></i>';
+        } elseif ($rating < 55) {
+            $stars = '<i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-line"></i>';
+        } elseif ($rating < 65) {
+            $stars = '<i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>';
+        } elseif ($rating < 75) {
+            $stars = '<i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-line"></i>';
+        } elseif ($rating < 85) {
+            $stars = '<i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>';
+        } elseif ($rating < 95) {
+            $stars = '<i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-half-line"></i>';
+        } else {
+            $stars = '<i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>';
+        }
+
+        return $stars;
+    }
+	?>
 
 	<script src="/profile/adminprofile/assets/js/script.js"></script>
 </body>
