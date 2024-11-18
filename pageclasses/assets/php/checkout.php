@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['buyerPhone'] = $phone;
         $_SESSION['totalPrice'] = $totalPrice;
         $_SESSION['itemNames'] = $itemNames;
+        $_SESSION['request'] = 'order';
 
         echo '<script>
             alert("Your order has been placed successfully! You will receive an email and a prompt shortly to verify and complete payment");
