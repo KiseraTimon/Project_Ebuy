@@ -8,6 +8,7 @@ require ('pageclasses/sell.php');
 require ('pageclasses/buy.php');
 require ('components/header.php');
 require ('components/footer.php');
+require ('components/ratings.php');
 
 
 //Header object
@@ -30,3 +31,6 @@ $buy = new buypage();
 
 //Auth object
 $auth = new auth();
+
+//Ratings object
+$ratings = new ratings();
