@@ -71,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //Mailer & Prompt Sessions (set after successful inserts)
+    $request = 'order';
     $_SESSION['buyerUID'] = $buyerUID;
     $_SESSION['buyerFname'] = $fname;
     $_SESSION['buyerLname'] = $lname;
@@ -80,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['buyerPhone'] = $phone;
     $_SESSION['totalPrice'] = array_sum($itemTotalPrices); // Total price for all items
     $_SESSION['itemNames'] = $itemNames;
-    $_SESSION['request'] = 'order';
+    $_SESSION['request'] = $request;
 
     echo '<script>
         alert("Your order has been placed successfully! You will receive an email and a prompt shortly to verify and complete payment.");

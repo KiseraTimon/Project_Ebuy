@@ -133,15 +133,26 @@ else
 
             $orders = [];
               while ($row = $orderResult->fetch_assoc()) {
-                  // Decode JSON fields into PHP arrays
-                  $row['itemNames'] = json_decode($row['itemNames'], true);
-                  $row['itemQuantities'] = json_decode($row['itemQuantities'], true);
-                  $row['itemPrices'] = json_decode($row['itemPrices'], true);
-                  $row['itemTotalPrices'] = json_decode($row['itemTotalPrices'], true);
-                  $row['sellerUID'] = json_decode($row['sellerUID'], true);
-                  $orders[] = $row;
+                  //Fetch order items
+                  $orderID = $row['orderID'];
+                  $itemNames = $row['itemNames'];
+                  $itemQuantities = $row['itemQuantities'];
+                  $itemPrices = $row['itemPrices'];
+                  $totalPrice = $row['itemTotalPrices'];
 
                   $status = $row['status'];
+
+                  ?>
+                  <div class="cart-item">
+                      <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
+                      <div class="item-details">
+                          <p class="item-name"><?php echo $itemNames?></p>
+                          <p class="item-count">Quantity: <?php echo $itemQuantities?></p>
+                          <p class="item-price">Price per Item: Ksh <?php echo $itemPrices?></p>
+                      </div>
+                      <button class="status-button"><?php echo $status?></button>
+                  </div>
+                  <?php
               }
               $stmt->close();
           } else {
@@ -149,20 +160,18 @@ else
           }
           ?>
 
-
-          <div id="cart" class="tab-content active-tab">
           <div class="cart-container">
             <?php if (empty($orders)): ?>
-                <p>No items in your cart yet!</p>
+                <p>There is no order history</p>
             <?php else: ?>
                 <?php foreach ($orders as $order): ?>
                     <?php for ($i = 0; $i < count($order['itemNames']); $i++): ?>
                         <div class="cart-item">
                             <img src="https://via.placeholder.com/80" alt="Item Image" class="item-image">
                             <div class="item-details">
-                                <p class="item-name"><?= htmlspecialchars($order['itemNames'][$i]) ?></p>
-                                <p class="item-count">Quantity: <?= htmlspecialchars($order['itemQuantities'][$i]) ?></p>
-                                <p class="item-price">Price per Item: Ksh <?= htmlspecialchars($order['itemPrices'][$i]) ?></p>
+                                <p class="item-name"><?php echo $itemNames?></p>
+                                <p class="item-count">Quantity: <?php echo $itemQuantities?></p>
+                                <p class="item-price">Price per Item: Ksh <?php echo $itemPrices?></p>
                             </div>
                             <button class="status-button"><?php echo $status?></button>
                         </div>
@@ -170,12 +179,12 @@ else
                 <?php endforeach; ?>
                 <div class="total-container">
                     <p class="total-price">
-                        Grand Total: Ksh <?= array_sum(array_column($orders, 'totalPrice')) ?>
+                        Grand Total: Ksh <?php echo $totalPrice;?>
                     </p>
                 </div>
             <?php endif; ?>
         </div>
-        </div>
+        </div> -->
         
           <!--Favourites Tab-->
           <div id="favourites" class="tab-content">
